@@ -1,0 +1,28 @@
+Iniciar um repositório
+Na pasta que será o novo repositório Git, execute o comando:
+git init
+
+Baixar" um repositório
+Para baixar um repositório do GitHub, Bitbucket, GitLab ou qualquer que seja o servidor do nosso projeto,
+devemos rodar o comando git clone com o link do repositório.
+git clone link
+
+Baixar as últimas alterações do servidor
+Quando algo estiver diferente no nosso repositório remoto (no servidor), podemos baixar para a nossa máquina com o comando pull.
+git pull
+
+Enviando uma branch para o servidor
+Caso tenhamos criado uma branch em nossa máquina, precisamos enviar ela para o servidor com o comando push,
+explicado mais abaixo neste texto, e passar alguns parâmetros que são o origin e nome da branch.
+git push origin nome_da_branch
+
+Adicionando alterações
+Quando alteramos algo, devemos rodar o comando git add para adicionar ao index e depois fechar um commit.
+Adicionando um arquivopermalink
+git add nome_do_arquivo
+Adicionando tudo de uma vezpermalink
+git add .
+
+Também podemos rodar git commit com o parâmetro -am, onde adicionamos tudo de uma vez e já deixamos uma mensagem para o commit.
+Exemplo:
+git commit -am "add tudo"
