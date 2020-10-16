@@ -3,5 +3,5 @@
 Repositório dedicado para listas de exercícios e projetos do curso engenharia da computação.
 _Obs: Serão postadas somente matérias relacionadas a relacionadas a programação_
 ### 1 SEMESTRE
-[Fundamentos de Programação](https://github.com/eigenstirner/EngenhariaDaComputacao-UTFPR/tree/main/FundamentosDeProgramacao)| Introdução a Engenharia |
+[Fundamentos de Programação](/FundamentosDeProgramacao)| [Introdução a Engenharia](/IntroducaoEngenharia) |
 --- | --- | 
