@@ -10,6 +10,7 @@ void vetoresPares(int vetor[], int tamanho);
 void vetoresImpares(int vetor[], int tamanho);
 
 int main(){
+  setlocale(LC_ALL,"Portuguese");
 
   int elementos = 15, limite = 25, vet[elementos];
   char ch;

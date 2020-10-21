@@ -15,6 +15,7 @@ void mostrarVetorInteirosInvertido(int vetor[], int tamanho){
 }
 
 int main(){
+  setlocale(LC_ALL,"Portuguese");
 
   int elementos = 10, limite = 10, vetor[elementos];
   char ch;

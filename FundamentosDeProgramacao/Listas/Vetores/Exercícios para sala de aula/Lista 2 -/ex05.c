@@ -12,7 +12,8 @@
 void comparaVetor(int vetorA[], int tamanhoA, int vetorB[], int tamanhoB);
 
 int main(){
-
+  setlocale(LC_ALL,"Portuguese");
+  
   int tamanhoA, tamanhoB, vetA[tamanhoA], vetB[tamanhoB];
   char ch;
 

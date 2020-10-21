@@ -15,6 +15,7 @@ void mostrarVetorInteirosDuplicado(int vetor[], int tamanho){
 }
 
 int main(){
+  setlocale(LC_ALL,"Portuguese");
 
   int elementos = 8, limite = 10, vetor[elementos];
   char ch;
