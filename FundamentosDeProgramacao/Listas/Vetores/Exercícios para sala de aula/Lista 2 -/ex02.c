@@ -2,6 +2,7 @@
 // dimensão com os elementos de A multiplicados por 2.
 #include <stdio.h>
 #include <stdlib.h>
+#include <locale.h>
 #include <time.h>
 #include <ctype.h>
 #include "vetores.h"

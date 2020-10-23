@@ -8,7 +8,7 @@
 
 int main(){
   setlocale(LC_ALL,"Portuguese");
-  
+
   int elementos=50, a[elementos], soma;
   float media;
   char ch;

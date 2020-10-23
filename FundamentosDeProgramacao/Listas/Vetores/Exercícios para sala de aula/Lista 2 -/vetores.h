@@ -2,38 +2,38 @@
 #define VETOR_H_INCLUDED
 
 
-void gerarVetorInteiros(int vetor[], int tamanho, int limite){
-  int i;
+  void gerarVetorInteiros(int vetor[], int tamanho, int limite){
+    int i;
 
-  srand(time(0));
+    srand(time(0));
 
-  for(i=0; i<tamanho; i++){
-    vetor[i] = (rand() % limite) + 1 ;
+    for(i=0; i<tamanho; i++){
+      vetor[i] = (rand() % limite) + 1 ;
+    }
   }
-}
 
-void mostrarVetorInteiros(int vetor[], int tamanho){
-  int i;
+  void mostrarVetorInteiros(int vetor[], int tamanho){
+    int i;
 
-  for(i=0; i<tamanho; i++){
-    printf("%d ", vetor[i]);
+    for(i=0; i<tamanho; i++){
+      printf("%d ", vetor[i]);
+    }
   }
-}
 
-void gerarVetorInteiroComLimite(int vetor[], int tamanho, int valor_inicial, int valor_final){
-  int i;
-  srand(time(0));
-  for(i=0; i<tamanho; i++){
-    vetor[i] = (rand() % valor_final) + valor_inicial;
+  void gerarVetorInteiroComLimite(int vetor[], int tamanho, int valor_inicial, int valor_final){
+    int i;
+    srand(time(0));
+    for(i=0; i<tamanho; i++){
+      vetor[i] = (rand() % valor_final) + valor_inicial;
+    }
   }
-}
 
-int somarVetorInteiro(int vetor[], int tamanho){
-  int i, somaVetores = 0;
-  for(i=0; i<tamanho; i++){
-    somaVetores = somaVetores + vetor[i];
+  int somarVetorInteiro(int vetor[], int tamanho){
+    int i, somaVetores = 0;
+    for(i=0; i<tamanho; i++){
+      somaVetores = somaVetores + vetor[i];
+    }
+    return somaVetores;
   }
-  return somaVetores;
-}
 
 #endif

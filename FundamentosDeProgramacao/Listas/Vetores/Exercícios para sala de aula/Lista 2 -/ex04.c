@@ -4,13 +4,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <locale.h>
 #include <ctype.h>
 #include "vetores.h"
 
 void mostrarVetorInteirosInvertido(int vetor[], int tamanho){
   int i;
-  for(i=tamanho-1; i>0; i--){
-    printf("%d    ",  vetor[i]);
+  for(i=tamanho-1; i>=0; i--){
+    printf("%d ",  vetor[i]);
   }
 }
 

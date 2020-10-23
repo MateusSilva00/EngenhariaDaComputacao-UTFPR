@@ -4,10 +4,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <locale.h>
 #include <ctype.h>
 #include "vetores.h"
 
-void mostrarVetorInteirosDuplicado(int vetor[], int tamanho){
+void mostrarVetorInteirosMultiplicado(int vetor[], int tamanho){
   int i, resultado;
 
   for(i=0; i<tamanho; i++){
@@ -27,7 +28,7 @@ int main(){
     printf("=== VETOR A ===\n");
     mostrarVetorInteiros(vetor, elementos);
     printf("\n=== VETOR B ===\n");
-    mostrarVetorInteirosDuplicado(vetor, elementos);
+    mostrarVetorInteirosMultiplicado(vetor, elementos);
     printf("\n\nDeseja continuar o programa (S ou N).: ");
     scanf(" %c", &ch);
     ch = toupper(ch);

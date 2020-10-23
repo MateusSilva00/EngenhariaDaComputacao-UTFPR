@@ -20,7 +20,7 @@ int main(){
       gerarVetorInteiroComLimite(vetor, elementos, 0, 2);
       printf("=== VETOR A ===\n");
       mostrarVetorInteiros(vetor, elementos);
-      printf("=== VETOR B ===\n");
+      printf("\n=== VETOR B ===\n");
       continuidadeDeZeros(vetor, elementos);
 
 

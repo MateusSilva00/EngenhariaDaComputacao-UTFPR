@@ -26,7 +26,7 @@ int main(){
   float tempMedia;
   char ch;
     do {
-      gerarVetorInteiroComLimite(vetor, elementos, 5, 45);
+      gerarVetorInteiroComLimite(vetor, elementos, 5, 41);
       printf("=== TEMPERATURA ===\n");
       mostrarVetorInteiros(vetor, elementos);
 

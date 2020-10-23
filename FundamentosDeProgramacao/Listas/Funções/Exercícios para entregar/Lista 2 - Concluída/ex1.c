@@ -19,7 +19,7 @@ int numTriangular(int x){
 
 int main(){
   setlocale(LC_ALL,"Portuguese");
-  
+
   int opcao, num, limInf, limSup, i;
   char ch;
   do {
