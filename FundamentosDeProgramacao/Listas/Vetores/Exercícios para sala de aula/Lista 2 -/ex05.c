@@ -5,58 +5,77 @@
 // quando o elemento de A for menor que o respectivo elemento em B. Mostrar os elementos do vetor C.
 #include <stdio.h>
 #include <stdlib.h>
+#include <locale.h>
 #include <time.h>
 #include <ctype.h>
 #include "vetores.h"
 
-void comparaVetor(int vetorA[], int tamanhoA, int vetorB[], int tamanhoB);
+void compareVetor(int vetorA[], int tamanhoA, int vetorB[], int tamanhoB);
 
 int main(){
   setlocale(LC_ALL,"Portuguese");
-  
-  int tamanhoA, tamanhoB, vetA[tamanhoA], vetB[tamanhoB];
+
+  int tamanhoA,  tamanhoB;
   char ch;
 
   do {
-    printf("Informe o tamanho do vetor A.: ");
-    scanf("%d", &tamanhoA);
-    printf("Informe o tamanho do vetor B.: ");
-    scanf("%d", &tamanhoB);
-    printf("\n=== VETOR A ===\n");
-    gerarVetorInteiros(vetA, tamanhoA, 20);
-    mostrarVetorInteiros(vetA, tamanhoA);
-    printf("\n=== VETOR B ===\n");
-    gerarVetorInteiros(vetB, tamanhoB, 15);
-    mostrarVetorInteiros(vetB, tamanhoB);
-    printf("\n=== VETOR C ===\n");
-    comparaVetor(vetA, tamanhoA, vetB, tamanhoB);
+    do {
+      printf("Informe o tamanho do vetor A.: ");
+      scanf("%d", &tamanhoA);
+      if (tamanhoA <= 0){
+        printf("Informe um valor positivo!\n");
+      }
+      else{
+        int vetA[tamanhoA];
+        do {
+          printf("Informe o tamanho do vetor B.: ");
+          scanf("%d", &tamanhoB);
+          if(tamanhoB <= 0){
+            printf("Informe um valor positivo!\n");
+          }
+          else{
+            int vetB[tamanhoB];
+            printf("\n=== VETOR A ===\n");
+            gerarVetorInteiros(vetA, tamanhoA, 20);
+            mostrarVetorInteiros(vetA, tamanhoA);
+
+            printf("\n\n=== VETOR B ===\n");
+            gerarVetorInteiros(vetB, tamanhoB, 15);
+            mostrarVetorInteiros(vetB, tamanhoB);
+            printf("\n\n=== VETOR C ===\n");
+            compareVetor(vetA, tamanhoA, vetB, tamanhoB);
+
+          }
+        } while(tamanhoB <= 0);
+      }
+    } while(tamanhoA <= 0);
 
     printf("\n\nDeseja continuar o programa (S ou N).: ");
     scanf(" %c", &ch);
     ch = toupper(ch);
+
   } while(ch == 'S');
 
   return 0;
 }
 
-void comparaVetor(int vetorA[], int tamanhoA, int vetorB[], int tamanhoB){
+void compareVetor(int vetorA[], int tamanhoA, int vetorB[], int tamanhoB){
   int maior, i;
-  if(tamanhoA >= tamanhoB){
-    maior = tamanhoA;
-  }
-  else{
+  if(tamanhoB >= tamanhoA){
     maior = tamanhoB;
   }
-
+  else{
+    maior = tamanhoA;
+  }
   for(i=0; i<maior; i++){
     if(vetorA[i] > vetorB[i]){
-      printf("1    ");
+      printf("1 ");
     }
-    if(vetorA[i] == vetorB[i]){
-      printf("0    ");
+    else if(vetorA[i] == vetorB[i]){
+      printf("0 ");
     }
-    if(vetorA[i] < vetorB[i]){
-      printf("-1    ");
+    else if(vetorA[i] < vetorB[i]){
+      printf("-1 ");
     }
   }
 }
