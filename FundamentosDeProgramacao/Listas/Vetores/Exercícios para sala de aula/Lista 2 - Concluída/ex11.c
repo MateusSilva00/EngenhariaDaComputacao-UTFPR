@@ -13,7 +13,7 @@ void verificarVetor(int vetorA[], int vetorB[], int tamanho){
       k++;
     }
   }
-  for(i=0; i<k;i ++){
+  for(i=0; i<k; i++){
     printf("%d ", vetorB[i]);
   }
 }
