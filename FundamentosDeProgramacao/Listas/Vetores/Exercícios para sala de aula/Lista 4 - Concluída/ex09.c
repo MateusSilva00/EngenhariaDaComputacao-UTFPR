@@ -18,7 +18,7 @@ int main(){
       j++;
     }
     inversa[j] = '\0';
-    
+
     retornoFuncao = verificarString(palavra, inversa);
     if(retornoFuncao == 1){
       printf("É palindromo!\n");
