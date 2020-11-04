@@ -4,18 +4,19 @@
 
 int main(){
 
-  int i;
-  char texto[150], ch;
+  int i=0;
+  char texto[150], ch, palavra[150];
   do {
     printf("Informe um texto com ate 150 caracteres.: ");
     fgets(texto, sizeof(texto), stdin);
-    printf("\n=== TEXTO INVERSO ===\n");
-    for(i=strlen(texto); i >= 0; i--){
-      putchar(texto[i]);
+    while(texto[i] != ' '){
+      palavra[i] = texto[i];
+      i++;
     }
+    printf("A string copiada é.: %s", palavra);
     printf("\n\nDeseja repetir o programa (S ou N).: ");
     scanf("%c", &ch);
-    getchar(); // lê o caracter da nova linha
+    getchar();
   } while(toupper(ch) == 'S');
 
   return 0;

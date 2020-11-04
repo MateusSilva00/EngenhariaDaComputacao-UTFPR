@@ -31,9 +31,8 @@ int main(){
     printf("\nA/a\t %d\nE/e\t %d\nI/i\t %d\nO/o\t %d\nU/u\t %d", vetVogais[0], vetVogais[1], vetVogais[2],vetVogais[3], vetVogais[4]);
 
     printf("\n\nDeseja continuar o programa (S ou N).: ");
-    fflush(stdin);
     scanf("%c", &ch);
-    i=0;
+    getchar();
   } while(toupper(ch) == 'S');
 
   return 0;

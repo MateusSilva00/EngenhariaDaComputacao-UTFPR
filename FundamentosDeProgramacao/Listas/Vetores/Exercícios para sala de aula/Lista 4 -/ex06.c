@@ -9,13 +9,16 @@ int main(){
   do {
     printf("Informe um texto com ate 150 caracteres.: ");
     fgets(texto, sizeof(texto), stdin);
-    printf("\n=== TEXTO INVERSO ===\n");
-    for(i=strlen(texto); i >= 0; i--){
-      putchar(texto[i]);
+    printf("\n=== TEXTO NA VERTICAL ===\n");
+    for(i=0; i <= strlen(texto); i++){
+      if(texto[i] == ' '){
+        printf("\n");
+      }
+      else putchar(texto[i]);
     }
     printf("\n\nDeseja repetir o programa (S ou N).: ");
     scanf("%c", &ch);
-    getchar(); // lê o caracter da nova linha
+    getchar();
   } while(toupper(ch) == 'S');
 
   return 0;
