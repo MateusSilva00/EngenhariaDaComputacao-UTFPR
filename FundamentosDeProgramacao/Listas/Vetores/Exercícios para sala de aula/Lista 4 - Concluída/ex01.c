@@ -27,8 +27,8 @@ int main(){
     }
 
     printf("\n\nDeseja continuar o programa (S ou N).: ");
-    fflush(stdin);
     scanf("%c", &ch);
+    getchar();
   } while(toupper(ch) == 'S');
 
 
