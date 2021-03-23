@@ -48,8 +48,8 @@ int verificaPrimo(int num){
   printf("\n");
   if(num == 1){
     return 0;
-    break;
   }
+
   for(i; i <= num/2; i++){
     if(num % i == 0 || num == 1){
       return 0;
