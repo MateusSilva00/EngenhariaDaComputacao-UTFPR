@@ -5,3 +5,6 @@ _Obs: Serão postadas somente matérias relacionadas a programação_
 ### 1 SEMESTRE
 [Fundamentos de Programação](/FundamentosDeProgramacao)| [Introdução a Engenharia](/IntroducaoEngenharia) |
 --- | --- | 
+### 2 SEMESTRE
+[Algoritmos e Estrutura de Dados 1](/AlgoritmosEstruturaDeDados1)
+--- |
