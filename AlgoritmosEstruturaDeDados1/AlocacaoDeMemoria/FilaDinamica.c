@@ -27,7 +27,7 @@ booleano Definir(Fila *F){
   return TRUE;
 }
 
-Fila* CriarFila(int i, char *s){
+Fila* CriarFila(){
     Fila* F = (Fila*) malloc(sizeof(Fila));
     if(F==NULL)
       return F;
@@ -66,7 +66,7 @@ booleano Remover(Fila *F){
   else return FALSE;
 }
 
-no* CriarNo(int i, char *s){
+no* CriarNo(int i, const char *s){
   no* novo;
   novo = (no*) malloc(sizeof(no));
   novo->id = i;
@@ -89,30 +89,4 @@ void Imprimir(Fila *F){
   }
 
   printf("\n");
-}
-
-int main(){
-
-  Fila F;
-  Definir(&F);
-  Imprimir(&F);
-
-
-  no* n1;
-  n1 = CriarNo(1, "aa");
-  no* n2;
-  n2 = CriarNo(2, "bb");
-  no* n3;
-  n3 = CriarNo(3, "fodasse");
-
-  Inserir(&F, n1);
-  Inserir(&F, n2);
-  Inserir(&F, n3);
-  Imprimir(&F);
-  Remover(&F);
-  Imprimir(&F);
-  Remover(&F);
-  Imprimir(&F);
-
-  return 0;
 }
