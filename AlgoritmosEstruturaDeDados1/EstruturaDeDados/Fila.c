@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 #define MAX 100 		/* Max. Tamanho da Lista */
 
@@ -10,7 +12,7 @@ typedef struct {
 typedef struct{
 		int nelem;
 		elem A[MAX];
-}Fila; 
+}Fila;
 
 
 void Definir(Fila *F){
@@ -58,13 +60,13 @@ Devolve true se sucesso, false caso contrario (L nao tem posicao p, inclusive se
     return 1;
 }
 
-/*elem* Obter(Fila *L, int p){
+elem* Obter(Fila *L, int p){
 
-	if (p >= Fim(F) || p < 1 || Fila_vazia(F))
-		return NULL;    
+	if (p >= Fim(L) || p < 1 || Fila_vazia(L))
+		return NULL;
 	else
         return &(L->A[p]);
-}*/
+}
 
 
 int main(void){

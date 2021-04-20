@@ -27,7 +27,13 @@ ListaSE* Definir(){
   return L;
 }
 
-no* CriarNo(char *s, int i, float f){
+booleano ListaVazia(ListaSE *L){
+  if(L->quant == 0)
+    return TRUE;
+  return FALSE;
+}
+
+no* CriarNo(const char *s, int i, float f){
   no* novo;
   novo = (no*) malloc(sizeof(no));
   strcpy(novo->produtos, s);
@@ -58,13 +64,23 @@ booleano Inserir(ListaSE *L, no* novo, int posicao){
   return TRUE;
 }
 
+booleano Remover(ListaSE *L){
+  if(!ListaVazia(L)){
+    no* atual = L->inicio;
+    L->inicio = atual->prox;
+    L->quant--;
+    return TRUE;
+  }
+  return FALSE;
+}
+
 void Imprimir(ListaSE *L){
   no* aux;
   aux = L->inicio;
   printf("\n== Lista ==\n");
   if(!L->quant == 0){
     for(int i=0; i < L->quant; i++){
-      printf("\nItem: %s\nQuantidade: %d\nPreço: %.2f\n", aux->produtos, aux->unidade, aux->valor);
+      printf("\nItem: %s\nQuantidade: %d\tPreço: %.2f\n", aux->produtos, aux->unidade, aux->valor);
       aux = aux->prox;
     }
   }
@@ -80,13 +96,19 @@ int main(){
   no* n1;
   n1 = CriarNo("Refrigerante", 5, 7);
   Inserir(L, n1, 0);
-  Imprimir(L);
 
   no* n2;
   n2 = CriarNo("Queijo", 1, 5.20);
   Inserir(L, n2, 1);
-  Imprimir(L);
 
+  no* n3;
+  n3 = CriarNo("Salmão", 1, 35.30);
+  Inserir(L, n3, 2);
+
+  Imprimir(L);
+  Remover(L);
+  Remover(L);
+  Imprimir(L);
 
   return 0;
 }

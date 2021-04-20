@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include <stdio_ext.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
@@ -10,7 +10,6 @@ typedef int booleano;
 typedef struct{
   int chave;
   char produto[20];
-  int unidade;
   float valor;
 }REGISTRO;
 
@@ -37,12 +36,19 @@ ListaSE* Definir(){
   return NULL;
 }
 
-ELEMENTO* CriarReg(int chave, char *s, int i, float f){
+booleano ListaVazia(ListaSE *L){
+  if(L->quant == 0){
+    printf("Lista Vazia!\n");
+    return TRUE;
+  }
+  return FALSE;
+}
+
+ELEMENTO* CriarReg(char *s, float f){
   ELEMENTO* novo_produto;
   novo_produto = (ELEMENTO*) malloc(sizeof(ELEMENTO));
-  novo_produto->reg.chave = chave;
+  novo_produto->reg.chave = rand() % 1000 + 1;
   strcpy(novo_produto->reg.produto, s);
-  novo_produto->reg.unidade = i;
   novo_produto->reg.valor = f;
   novo_produto->prox = NULL;
   return novo_produto;
@@ -70,74 +76,100 @@ booleano Inserir(ListaSE *L, ELEMENTO* novo_produto, int posicao){
   return TRUE;
 }
 
-booleano Excluir(ListaSE *L, int posicao){
-  PONT pos = L->inicio;
-  if(L->quant <= 1 || posicao < 1 || posicao >= L->quant)
-    return FALSE;
-  while(pos != NULL && pos->reg.chave < posicao)
-    pos = pos->prox;
-  if(pos->reg.chave == posicao){
-    free(pos);
-  }
-  return TRUE;
+void tamanho(ListaSE *L){
+  printf("%d \n", L->quant);
 }
 
-
-int tamanho(ListaSE *L){
-  PONT end = L->inicio;
-  int tam = 0;
-  while (end != NULL) {
-    tam++;
-    end = end->prox;
+booleano Excluir(ListaSE *L){
+  if(!ListaVazia(L)){
+    ELEMENTO *atual = L->inicio;
+    L->inicio = atual->prox;
+    L->quant--;
+    return TRUE;
   }
-  return tam;
+  return FALSE;
 }
+
 
 void Imprimir(ListaSE *L){
   PONT end = L->inicio;
-  if(!L->quant == 0){
-      printf("Lista:\n");
+  if(!ListaVazia(L)){
+    printf("Lista:\n");
     for(int i = 0; i < L->quant; i++){
-      printf("Chave:%i\nItem: %s\nQuantidade: %d\nPreço: %.2f\n\n", end->reg.chave, end->reg.produto, end->reg.unidade, end->reg.valor);
+      printf("Item:%s\tPreço:%.2f\tChave:%i\n", strtok(end->reg.produto, "\n"), end->reg.valor, end->reg.chave);
       end = end->prox;
     }
     printf("\n");
   }
-  else printf("Lista Vazia!\n");
 }
 
-PONT buscaSeq(ListaSE *L, int chave){
-  PONT pos = L->inicio;
-  while (pos != NULL) {
-    if(pos->reg.chave ==  chave) return pos;
-    pos = pos->prox;
-  }
-  return NULL;
+void inserir(ListaSE *L, int key){
+  ELEMENTO* regs;
+  __fpurge(stdin);
+  char produto[100];
+  float valor;
+
+  printf("Produto: ");
+  fgets(produto, sizeof(produto), stdin);
+  printf("Valor: ");
+  scanf("%f", &valor);
+  regs = CriarReg(produto, valor);
+  Inserir(L, regs, key);
 }
 
+void reinicilizarLista(ListaSE *L){
+  L->quant = 0;
+}
+
+void limparTela(){
+  system("clear");
+}
 
 int main(){
   srand(time(0));
 
   ListaSE *L;
   L = Definir();
-  Imprimir(L);
 
-  ELEMENTO* reg1;
-  reg1 = CriarReg(10, "Refrigerante", 5, 7);
-  Inserir(L, reg1, 2);
+  int opt, chave = 0;
 
-  ELEMENTO* reg2;
-  reg2 = CriarReg(20, "Queijo", 1, 3.85);
-  Inserir(L, reg2, 1);
+  do {
+    printf("\n=== Menu de Opções ===\n1 - Inserir Elemento\n2 - Remover Elemento\n3 - Imprimir Lista");
+    printf("\n4 - Limpar Tela\n5 - Reiniciar Lista\n6 - Tamanho\n0 - SAIR\nOpção.: ");
+    scanf("%d", &opt);
 
-  ELEMENTO* reg3;
-  reg3 = CriarReg(30, "Coca-Cola 2 litros", 2, 15);
-  Inserir(L, reg3, 0);
-  Imprimir(L);
+    switch (opt) {
+      case 1:
+        inserir(L, chave);
+        chave++;
+      break;
 
-  // PONT aux = buscaSeq(L, 30);
+      case 2:
+        Excluir(L);
+      break;
 
+      case 3:
+        Imprimir(L);
+      break;
+
+      case 4:
+        limparTela();
+      break;
+
+      case 5:
+        reinicilizarLista(L);
+      break;
+
+      case 6:
+        tamanho(L);
+      break;
+
+      case 0:
+        system("exit");
+      break;
+    }
+
+  } while(opt != 0);
 
   return 0;
 }
