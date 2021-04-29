@@ -27,6 +27,13 @@ booleano Definir(Fila *F){
   return TRUE;
 }
 
+booleano FilaVazia(Fila *F){
+  if(F->quant == 0)
+    return TRUE;
+  else return FALSE;
+}
+
+
 Fila* CriarFila(){
     Fila* F = (Fila*) malloc(sizeof(Fila));
     if(F==NULL)
@@ -35,12 +42,6 @@ Fila* CriarFila(){
     F->ini = NULL;
     F->fim = NULL;
     return F;
-}
-
-booleano FilaVazia(Fila *F){
-  if(F->quant == 0)
-    return TRUE;
-  else return FALSE;
 }
 
 void Inserir(Fila *F, no *novo){

@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stddef.h>
 #define TRUE 1
 #define FALSE 0
 typedef int booleano;
@@ -8,8 +9,7 @@ typedef int booleano;
 typedef struct elem{
     struct elem* prox;
     struct elem* ant;
-    char livro[100];
-    float vl_preco;
+    char filme[30];
 }no;
 
 typedef struct{
@@ -32,17 +32,16 @@ booleano ListaVazia(ListaDE *L){
   return FALSE;
 }
 
-no* CriarNo(const char *name, float price){
+no* CriarNo(const char *s){
   no* novo = (no*)malloc(sizeof(no));
-  strcpy(novo->livro, name);
-  novo->vl_preco = price;
+  strcpy(novo->filme, s);
   novo->prox = NULL;
   novo->ant = NULL;
   return novo;
 }
 
 booleano InserirUnico(ListaDE *L, no* novo){
-  if(L->quant != 0)
+  if(!ListaVazia(L))
     return FALSE;
   else {
     L->inicio = novo;
@@ -129,69 +128,44 @@ booleano RemoverPorPosicao(ListaDE* L, int pos){
   else return FALSE;
 }
 
-void ImprimirANT(ListaDE* L){
-  if(ListaVazia(L))
-    printf("Lista Vazia!\n\n");
-  else{
-    no *aux = L->fim;
-    for(int i=0; i < L->quant; i++){
-      printf("%s\t%.2f\n", aux->livro, aux->vl_preco);
-      aux = aux->ant;
-    }
-  }
-}
-
 void ImprimirPROX(ListaDE* L){
-  if(ListaVazia(L))
+  if(L->quant == 0)
     printf("Lista Vazia!\n\n");
   else{
     no *aux = L->inicio;
     for(int i=0; i < L->quant; i++){
-      printf("%s\t%.2f\n", aux->livro, aux->vl_preco);
+      printf("%s\n", aux->filme);
       aux = aux->prox;
     }
   }
 }
 
-no* Obter(ListaDE *L, int posicao){
-  if(ListaVazia(L) || posicao >= L->quant || posicao < (-L->quant)){
-    return NULL;
-  }
-  else{
-    if(posicao < 0){
-      posicao = L->quant + posicao;
+void InverteLista(ListaDE *L){
+    no* aux_fim = L->fim;
+    no* aux_ini = L->inicio;
+    for(int i=0; i < L->quant; i++){
+      aux_ini = aux_fim;
+      aux_fim = aux_fim->ant;
     }
-    no* aux = L->inicio;
-    int cont = 0;
-    for(; cont < posicao; cont++){
-      aux = aux->prox;
-    }
-    return aux;
-  }
 }
 
 int main(){
   ListaDE *L;
   L = Definir();
 
-  no* f1 = CriarNo("Refatoração: Aperfeiçoando o Design de Códigos Existentes", 82.91);
-  no* f2 = CriarNo("Código Limpo", 70.99);
-  no* f3 = CriarNo("Exame de Redes com Nmap", 133.17);
-  no* f4 = CriarNo("Testes de Invasão", 80.50);
+  no* f1 = CriarNo("Forrest Gump");
+  no* f2 = CriarNo("Mente Brilhante");
+  no* f3 = CriarNo("Indiana Jones");
+  no* f4 = CriarNo("Estrelas Além do Tempo");
 
   InserirPorPosicao(L, f1, 0);
   InserirPorPosicao(L, f2, 1);
   InserirPorPosicao(L, f3, 2);
   InserirPorPosicao(L, f4, 3);
+
   ImprimirPROX(L);
-
-  no *Tk = Obter(L, -4);
-  if(Tk == NULL){
-    printf("Valor não encontrado!\n");
-  }
-  else printf("\n%s %.2f", Tk->livro, Tk->vl_preco);
-
-
-
+  InverteLista(L);
+  printf("\n");
+  ImprimirPROX(L);
   return 0;
 }

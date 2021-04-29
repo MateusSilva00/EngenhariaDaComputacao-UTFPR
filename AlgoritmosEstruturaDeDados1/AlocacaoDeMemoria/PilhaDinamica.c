@@ -25,7 +25,7 @@ booleano Definir(Pilha *P){
   return TRUE;
 }
 
-Pilha* CriarPilha(int i, char *s){
+Pilha* CriarPilha(){
     Pilha* P = (Pilha*) malloc(sizeof(Pilha));
     if(P==NULL)
       return P;
@@ -62,7 +62,7 @@ booleano Desempilha(Pilha *P){
   else return FALSE;
 }
 
-no* CriarNo(int i, char *s){
+no* CriarNo(int i, const char *s){
   no* novo;
   novo = (no*) malloc(sizeof(no));
   novo->id = i;
@@ -80,9 +80,8 @@ void Imprimir(Pilha *P){
   }
 
   while (aux != NULL) {
-    printf("Endereço: %p\n%d %s\n", aux, aux->id, aux->info);
+    printf("%d %s\n", aux->id, aux->info);
     aux = aux->anterior;
   }
-
   printf("\n");
 }

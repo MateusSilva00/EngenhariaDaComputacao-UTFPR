@@ -3,9 +3,9 @@
 
 int main(){
 
-  Pilha F;
-  Definir(&F);
-  Imprimir(&F);
+  Pilha P;
+  Definir(&P);
+  Imprimir(&P);
 
 
   no* n1;
@@ -17,15 +17,15 @@ int main(){
   no* n4;
   n4 = CriarNo(4, "PSG");
 
-  Empilha(&F, n1);
-  Empilha(&F, n2);
-  Empilha(&F, n3);
-  Empilha(&F, n4);
-  Imprimir(&F);
-  Desempilha(&F);
-  Imprimir(&F);
-  Desempilha(&F);
-  Imprimir(&F);
+  Empilha(&P, n1);
+  Empilha(&P, n2);
+  Empilha(&P, n3);
+  Empilha(&P, n4);
+  Imprimir(&P);
+  Desempilha(&P);
+  Imprimir(&P);
+  Desempilha(&P);
+  Imprimir(&P);
 
   return 0;
 }
