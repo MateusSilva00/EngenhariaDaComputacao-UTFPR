@@ -1,6 +1,11 @@
+// 3. (2,0) Implementar uma função “RemoveN” que remove o N-ésimo elemento de uma lista circular
+// encadeada. Comece a contar a partir do nó início. Caso N seja igual a 0, o início deve ser removido. A lista
+// pode ser tanto simples quanto duplamente encadeada. Observe que, sendo a lista circular, não há problema de N
+// ter valor maior que a quantidade de nó
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #define TRUE 1
 #define FALSE 0
 
@@ -53,14 +58,6 @@ booleano InserirUnico(LDECirc *L, no* novo){
   return FALSE;
 }
 
-void RemoverUnico(LDECirc* L) {
-  no* remov = L->inicio;
-  L->quant = 0;
-  L->inicio = NULL;
-  L->fim = NULL;
-  free(remov);
-}
-
 booleano InserirPorPosicao(LDECirc* L, no* novo, int pos){
   if(pos < 0 || pos > L->quant)
     return FALSE;
@@ -97,21 +94,43 @@ booleano InserirPorPosicao(LDECirc* L, no* novo, int pos){
   return TRUE;
 }
 
-booleano RemoverPorPosicao(LDECirc* L, int pos){
-  if(pos < 0 || pos > L->quant || L->quant == 0)
+void imprimir(LDECirc *L){
+  if(ListaVazia(L))
+    printf("Lista vázia!\n");
+  else {
+    no* aux = L->inicio;
+    for(int i = 0; i < L->quant; i++){
+      printf("[%d]%c ", i,aux->letra);
+      aux = aux->prox;
+    }
+  }
+}
+
+void RemoverUnico(LDECirc *L){
+  no* aux = L->inicio;
+  L->quant = 0;
+  L->inicio = NULL;
+  L->fim = NULL;
+  free(aux);
+}
+
+booleano RemoveN(LDECirc *L, int N){
+  if(N < 0 || L->quant == 0)
     return FALSE;
-  if (L->quant == 1)
+  if(L->quant == 0){
     RemoverUnico(L);
+    return TRUE;
+  }
   else{
-    if(pos == 0){
+    if(N == 0){
       no* aux = L->inicio;
       L->inicio = aux->prox;
       L->inicio->ant = L->fim;
       L->fim->prox = L->inicio;
       free(aux);
     }
-    else if(pos == L->quant-1){
-      no *aux = L->fim;
+    else if(N == L->quant){
+      no* aux = L->fim;
       L->fim = aux->ant;
       L->fim->prox = L->inicio;
       L->inicio->ant = L->fim;
@@ -120,7 +139,7 @@ booleano RemoverPorPosicao(LDECirc* L, int pos){
     else{
       no* aux = L->inicio;
       int cont = 0;
-      for(; cont < pos; cont++)
+      for(; cont < N; cont++)
         aux = aux->prox;
       aux->ant->prox = aux->prox;
       aux->prox->ant = aux->ant;
@@ -131,81 +150,28 @@ booleano RemoverPorPosicao(LDECirc* L, int pos){
   return TRUE;
 }
 
-void ImprimirPROX(LDECirc* L){
-    if (L->quant == 0){
-        printf("Lista vazia.\n\n");
-    } else {
-        no *aux;
-        aux = L->inicio;
-        for (int i=0; i<2*L->quant; i++){
-            printf("%c ", aux->letra);
-            aux = aux->prox;
-        }
-    }
-}
-
-void ImprimirANT(LDECirc* L){
-    if (L->quant == 0){
-        printf("Lista vazia.\n\n");
-    } else {
-        no *aux;
-        aux = L->fim;
-        for (int i=0; i<2*L->quant; i++){
-            printf("%c ", aux->letra);
-            aux = aux->ant;
-        }
-    }
-}
-
-no* Obter(LDECirc *L, int posicao) {
-
-  no* aux = L->inicio;
-  int cont = 0;
-
-  if(L->quant == 0 || posicao >= L->quant || posicao < -1*(L->quant))
-    return NULL;
-  else {
-     if(posicao >= 0){
-       do {
-         if(cont == posicao) {
-           return aux;
-         }
-         aux = aux->prox;
-         cont++;
-       } while(cont <= L->quant -1);
-     }
-     else {
-       posicao = posicao*-1;
-       aux = L->fim;
-       cont = 1;
-       do {
-         if (cont == posicao)
-            return aux;
-         aux = aux->ant;
-         cont++;
-       } while(cont <= L->quant);
-     }
-  }
-}
-
 int main(){
 
-    LDECirc *L;
-    L = Definir();
+  LDECirc *L = Definir();
 
-    no* f1 = CriarNo('a');
-    no* f2 = CriarNo('b');
-    no* f3 = CriarNo('c');
-    no* f4 = CriarNo('d');
+  no* f1;
+  srand(time(0));
+  int remover, j = 0;
 
+  for(int i = 0; i < 10; i++) {
+    f1  = CriarNo(i+97);
+    InserirPorPosicao(L, f1, i);
+  }
 
-    InserirPorPosicao(L, f2, 0);
-    InserirPorPosicao(L, f1, 1);
-    InserirPorPosicao(L, f4, 2);
-    InserirPorPosicao(L, f3, 1);
-
-    ImprimirPROX(L);
-    printf("\n");
+  printf("\n=== Lista completa ===\n");
+  imprimir(L);
+  while(j < 5){
+    remover = rand() % 20;
+    RemoveN(L, remover);
+    printf("\n\n=== Apos remover o elemento %d\n", remover);
+    imprimir(L);
+    j++;
+  }
 
   return 0;
 }

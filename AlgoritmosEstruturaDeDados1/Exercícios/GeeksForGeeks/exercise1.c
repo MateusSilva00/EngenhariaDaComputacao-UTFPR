@@ -1,15 +1,17 @@
-// 6) Escreva um método para ordenar uma lista. A escolha entre simplesmente ou duplamente
-// encadeada é sua. A escolha de qual método tamém.
+// 4) Escreva uma função que inverte a ordem das células de uma lista simplesmente
+// encadeada (a primeira passa a ser a última, a segunda passa a ser a penúltima etc.). Faça
+// isso sem usar espaço auxiliar; apenas altere os ponteiros.
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <time.h>
 #define TRUE 1
 #define FALSE 0
 typedef int booleano;
 
 typedef struct elem{
-  int letra;
+  char produtos[20];
+  int unidade;
+  float valor;
   struct elem* prox;
 }no;
 
@@ -28,11 +30,18 @@ ListaSE* Definir(){
   return L;
 }
 
+booleano ListaVazia(ListaSE *L){
+  if(L->quant == 0)
+    return TRUE;
+  return FALSE;
+}
 
-no* CriarNo(int s){
+no* CriarNo(const char *s, int i, float f){
   no* novo;
   novo = (no*) malloc(sizeof(no));
-  novo->letra = s;
+  strcpy(novo->produtos, s);
+  novo->unidade = i;
+  novo->valor = f;
   novo->prox = NULL;
   return novo;
 }
@@ -58,77 +67,56 @@ booleano Inserir(ListaSE *L, no* novo, int posicao){
   return TRUE;
 }
 
+
 void Imprimir(ListaSE *L){
   no* aux;
   aux = L->inicio;
   printf("\n== Lista ==\n");
   if(!L->quant == 0){
     for(int i=0; i < L->quant; i++){
-      printf("|%d|  ", aux->letra);
+      printf("\nItem: %s\nQuantidade: %d\tPreço: %.2f\n", aux->produtos, aux->unidade, aux->valor);
       aux = aux->prox;
     }
   }
   else printf("Lista vazia!\n");
 }
 
-void swap(int *x, int *y){
-  int aux = *x;
-  *x = *y;
-  *y = aux;
-}
+void moveToFront(ListaSE *L) {
 
-void bubble_sort(ListaSE *L){
-  int change = 1, i;
-  while (change == 1) {
-    change = 0;
-    no* atual = L->inicio;
-    no* aux = atual->prox;
-    // printf("\natual = %d aux = %d\n", atual->letra, aux->letra);
-    for(i = 0; i < L->quant - 1; i++){
-      if(atual->letra > aux->letra){
-        swap(&atual->letra, &aux->letra);
-        change = 1;
-      }
-      atual = atual->prox;
-      aux = aux->prox;
+  if(!ListaVazia(L)){
+    no* init = L->inicio;
+    no* fim = L->inicio;
+    while (fim->prox != NULL) {
+      fim = fim->prox;
     }
+    // TROCA DE VARIÁVEIS
+    no* aux = fim;
+    fim = L->inicio;
+    init = aux;
   }
 }
-
 
 int main(){
 
   ListaSE *L;
   L = Definir();
 
-  srand(time(0));
-
   no* n1; no* n2; no* n3; no* n4;
-  no* n5; no* n6; no* n7; no* n8;
-
-  n1 = CriarNo(rand() % 1000);
-  n2 = CriarNo(rand() % 1000);
-  n3 = CriarNo(rand() % 1000);
-  n4 = CriarNo(rand() % 1000);
-  n5 = CriarNo(rand() % 1000);
-  n6 = CriarNo(rand() % 1000);
-  n7 = CriarNo(rand() % 1000);
-  n8 = CriarNo(rand() % 1000);
-
+  n1 = CriarNo("Refrigerante", 5, 7);
   Inserir(L, n1, 0);
+
+  n2 = CriarNo("Queijo", 1, 5.20);
   Inserir(L, n2, 1);
+
+  n3 = CriarNo("Salmão", 1, 35.30);
   Inserir(L, n3, 2);
+
+  n4 = CriarNo("Frango", 1, 15.78);
   Inserir(L, n4, 3);
-  Inserir(L, n5, 4);
-  Inserir(L, n6, 5);
-  Inserir(L, n7, 6);
-  Inserir(L, n8, 7);
-
 
   Imprimir(L);
-  bubble_sort(L);
+  moveToFront(L);
   Imprimir(L);
-
 
   return 0;
 }

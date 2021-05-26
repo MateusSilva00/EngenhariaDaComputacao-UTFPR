@@ -67,16 +67,6 @@ booleano Inserir(ListaSE *L, no* novo, int posicao){
   return TRUE;
 }
 
-booleano Remover(ListaSE *L){
-  if(!ListaVazia(L)){
-    no* atual = L->inicio;
-    L->inicio = atual->prox;
-    L->quant--;
-    return TRUE;
-  }
-  return FALSE;
-}
-
 void Imprimir(ListaSE *L){
   no* aux;
   aux = L->inicio;
@@ -90,16 +80,20 @@ void Imprimir(ListaSE *L){
   else printf("Lista vazia!\n");
 }
 
-void InverteLista(ListaSE *L){
-  int i = 0;
-  int j = 0;
-
-  for(; i < L->quant; i++){
-    no* aux = L->inicio;
-    for(j=i; j < L->quant-1; j++){
-      aux = aux->prox;
-    }
+void inverterLista(no* fim, no* inicio) {
+  if(inicio->prox != NULL){
+    inverterLista(fim, inicio->prox);
   }
+  fim = inicio->prox;
+}
+
+void inverter(ListaSE* L){
+  no* fim = L->inicio;
+  while (fim->prox != NULL) {
+    fim = fim->prox;
+  }
+  inverterLista(fim, L->inicio);
+
 }
 
 int main(){
@@ -120,8 +114,11 @@ int main(){
   n4 = CriarNo("Frango", 1, 15.78);
   Inserir(L, n4, 3);
 
+
   Imprimir(L);
-  InverteLista(L);
+
+  inverter(L);
+  printf("\n=== Lista Invertida ===\n");
   Imprimir(L);
 
   return 0;

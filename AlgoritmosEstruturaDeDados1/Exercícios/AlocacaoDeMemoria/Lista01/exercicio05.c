@@ -1,3 +1,4 @@
+// 5) Repita o exercício 4 para uma lista duplamente encadeada
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -84,51 +85,7 @@ booleano InserirPorPosicao(ListaDE* L, no* novo, int pos){
   return TRUE;
 }
 
-void RemoverInicio(ListaDE* L){
-  if(!ListaVazia(L)){
-    no *atual = L->inicio;
-    L->inicio = atual->prox;
-    L->inicio->ant = NULL;
-    L->quant--;
-  }
-}
-
-void RemoverFim(ListaDE* L){
-  if(!ListaVazia(L)){
-    no *atual = L->fim;
-    L->fim = atual->ant;
-    L->fim->prox = NULL;
-    L->quant--;
-  }
-}
-
-booleano RemoverPorPosicao(ListaDE* L, int pos){
-  if(!ListaVazia(L)){
-    if(pos < 0 || pos > L->quant)
-      return FALSE;
-    if(pos == 0){
-      RemoverInicio(L);
-    }
-    else if(pos == L->quant-1){
-      RemoverFim(L);
-    }
-    else{
-      no* atual = L->inicio;
-      int cont = 0;
-      for(; cont < pos; cont++){
-        atual = atual->prox;
-      }
-      atual->ant->prox = atual->prox;
-      atual->prox->ant = atual->ant;
-      free(atual);
-      L->quant--;
-    }
-    return TRUE;
-  }
-  else return FALSE;
-}
-
-void ImprimirPROX(ListaDE* L){
+void Imprimir(ListaDE* L){
   if(L->quant == 0)
     printf("Lista Vazia!\n\n");
   else{
@@ -140,13 +97,20 @@ void ImprimirPROX(ListaDE* L){
   }
 }
 
-void InverteLista(ListaDE *L){
-    no* aux_fim = L->fim;
-    no* aux_ini = L->inicio;
-    for(int i=0; i < L->quant; i++){
-      aux_ini = aux_fim;
-      aux_fim = aux_fim->ant;
-    }
+// Inverte os elementos da lista
+void inverteLista(no *atual, no* anterior){
+  if(atual->prox != NULL)
+    inverteLista(atual->prox, atual);
+  atual->prox = anterior;
+}
+
+// Inverte as referências de inicio e fim
+void inverter(ListaDE *L){
+  inverteLista(L->inicio, NULL);
+
+  no* aux = L->inicio;
+  L->inicio = L->fim;
+  L->fim = aux;
 }
 
 int main(){
@@ -163,9 +127,9 @@ int main(){
   InserirPorPosicao(L, f3, 2);
   InserirPorPosicao(L, f4, 3);
 
-  ImprimirPROX(L);
-  InverteLista(L);
-  printf("\n");
-  ImprimirPROX(L);
+  Imprimir(L);
+  inverter(L);
+  printf("\n=== LISTA INVERTIDA ===\n");
+  Imprimir(L);
   return 0;
 }

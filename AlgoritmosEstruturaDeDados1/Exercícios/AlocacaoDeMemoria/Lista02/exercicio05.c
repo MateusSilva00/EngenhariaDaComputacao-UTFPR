@@ -1,7 +1,13 @@
+// 5. A seguir, crie um programa que leia esse arquivo utilizando no prompt “programa.exe <
+// entrada.txt”. Considerando que cada linha tem 3 números e 1 string no formato “A B C S”, seu
+// programa deve:
+// - Sempre que A = 1, insira um elemento em uma lista dinâmica duplamente encadeada (LDDE)
+// com chave=C e info=S na posição B;
+// - Sempre que A = 2, remova o elemento da LDDE com chave = B (ignore C e S, neste caso);
+// - Sempre que A = 3, imprima todos nós da LDDE (ignore B, C e S, neste caso).
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stddef.h>
 #define TRUE 1
 #define FALSE 0
 typedef int booleano;
@@ -9,7 +15,8 @@ typedef int booleano;
 typedef struct elem{
     struct elem* prox;
     struct elem* ant;
-    char filme[30];
+    char info[5];
+    int chave;
 }no;
 
 typedef struct{
@@ -32,9 +39,10 @@ booleano ListaVazia(ListaDE *L){
   return FALSE;
 }
 
-no* CriarNo(const char *s){
+no* CriarNo(char *s, int k){
   no* novo = (no*)malloc(sizeof(no));
-  strcpy(novo->filme, s);
+  strcpy(novo->info, s);
+  novo->chave = k;
   novo->prox = NULL;
   novo->ant = NULL;
   return novo;
@@ -52,7 +60,7 @@ booleano InserirUnico(ListaDE *L, no* novo){
 }
 
 booleano InserirPorPosicao(ListaDE* L, no* novo, int pos){
-  if(pos < 0 || pos > L->quant)
+  if(pos < 0 || (pos > L->quant && L->quant > 1))
     return FALSE;
   if(L->quant == 0){
     InserirUnico(L, novo);
@@ -128,26 +136,42 @@ booleano RemoverPorPosicao(ListaDE* L, int pos){
   else return FALSE;
 }
 
-void ImprimirANT(ListaDE* L){
-  if(ListaVazia(L))
-    printf("Lista Vazia!\n\n");
-  else{
-    no *aux = L->fim;
-    for(int i=0; i < L->quant; i++){
-      printf("%s\n", aux->filme);
-      aux = aux->ant;
-    }
-  }
-}
-
-void ImprimirPROX(ListaDE* L){
+void Imprimir(ListaDE* L){
   if(L->quant == 0)
     printf("Lista Vazia!\n\n");
   else{
     no *aux = L->inicio;
     for(int i=0; i < L->quant; i++){
-      printf("%s\n", aux->filme);
+      printf("[%d] %s\n", aux->chave,aux->info);
       aux = aux->prox;
     }
   }
+}
+
+int main(){
+
+  ListaDE *L;
+  L = Definir();
+
+  int A, B, C, cont = 0;
+  char s[5];
+  no* aux;
+
+  while (cont < 8) {
+    scanf("%d %d %d", &A, &B, &C);
+    scanf("%s", s);
+    if (A == 1){
+      aux = CriarNo(s, C);
+      InserirPorPosicao(L, aux, B);
+    }
+    else if(A == 2){
+      RemoverPorPosicao(L, B);
+    }
+    else if(A == 3){
+      Imprimir(L);
+    }
+    cont++;
+  }
+
+  return 0;
 }

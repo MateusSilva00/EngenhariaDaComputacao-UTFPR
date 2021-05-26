@@ -14,6 +14,14 @@ typedef struct{
   elem pessoas[26];
 }THash;
 
+int definir(THash *T){
+  for(int i=0; i < 26; i++){
+    strcpy(T->pessoas[i].nome, "");
+    T->pessoas[i].nota = -1;
+  }
+  return TRUE;
+}
+
 int FuncaoHash(char *nome){
   char primeiro;
   primeiro = nome[0];
@@ -25,7 +33,7 @@ booleano inserir(THash *T, char *nome, float nota){
   int pos;
   pos = FuncaoHash(nome);
 
-  if(T->pessoas[pos].nota != 0){
+  if(T->pessoas[pos].nota != -1){
     printf("\nCOLISÃO!\n");
     return FALSE;
   }
@@ -49,6 +57,7 @@ int main(){
 
   THash *T;
   T = (THash*) malloc(sizeof(THash));
+  definir(T);
   char n[20];
 
   for(int i=0; i < 3; i++){
