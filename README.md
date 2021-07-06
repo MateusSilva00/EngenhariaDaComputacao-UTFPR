@@ -3,7 +3,13 @@
 Repositório dedicado para listas de exercícios e projetos do curso engenharia da computação. <br>
 ### 1 SEMESTRE
 [Fundamentos de Programação](/FundamentosDeProgramacao)| [Introdução a Engenharia](/IntroducaoEngenharia) |
---- | --- | 
+--- | --- |
 ### 2 SEMESTRE
-[Algoritmos e Estrutura de Dados 1](/AlgoritmosEstruturaDeDados1)
+[Algoritmos e Estrutura de Dados 1](/AlgoritmosEstruturaDeDados1) |
+--- |
+### 3 SEMESTRE
+[Algoritmos e Estrutura de Dados 2](/AlgoritmosEstruturaDeDados2) |
+--- |
+### 6 SEMESTRE
+[Banco de Dados 1](/BancoDeDados1) |
 --- |
