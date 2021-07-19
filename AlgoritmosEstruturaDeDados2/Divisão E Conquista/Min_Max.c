@@ -2,8 +2,7 @@
 #include <time.h>
 #include <stdlib.h>
 
-int DAC_max(int array[], int index, int left)
-{
+int DAC_max(int array[], int index, int left){
     int max;
     if (index >= left - 2)
     {
@@ -21,8 +20,7 @@ int DAC_max(int array[], int index, int left)
         return max;
 }
 
-int DAC_min(int array[], int index, int left)
-{
+int DAC_min(int array[], int index, int left){
 
     int min;
     if (index >= left - 2)
@@ -40,8 +38,7 @@ int DAC_min(int array[], int index, int left)
         return min;
 }
 
-int main()
-{
+int main(){
 
     srand(time(0));
 
