@@ -1,6 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#define TAM 8
+
+// Exemplo de impressoes
+//             50
+//     25              10
+//         30
+    
+//     50 25 30 100
+//     25 30 50 100
 
 typedef struct node{
     int data;
@@ -8,7 +17,7 @@ typedef struct node{
     struct node* right;
 } Node;
 
-Node* insert0(Node *root, int num){
+Node* insert(Node *root, int num){
     if(root == NULL){
         Node *aux = malloc(sizeof(Node));
         aux->data = num;
@@ -24,14 +33,64 @@ Node* insert0(Node *root, int num){
     }
 }
 
-void insert(Node **ro)
-
-void print(Node *root){
+void leftView(Node *root){
     if(root){
-        print(root->left);
         printf("%d ", root->data);
-        print(root->right);
+        leftView(root->left);
+        leftView(root->right);
     }
+}
+
+void inorderTraversal(Node *root){
+    if(root){
+        inorderTraversal(root->left);
+        printf("%d ", root->data);
+        inorderTraversal(root->right);
+    }
+}
+
+Node* Search_v1(Node *root, int num){
+    if(root){
+        if(num == root->data)
+            return root;
+        else if(num < root->data)
+            return Search_v1(root->left, num);
+        else   
+            return Search_v1(root->right, num);
+    }
+}
+
+Node* Search_v2(Node *root, int num){
+    while (root){
+        if(num < root->data)
+            root = root->left;
+        else if(num > root->data)
+            root = root->right;
+        else  
+            return root;
+    }
+    
+}
+
+int height(Node *root){
+    if(root == NULL)   
+        return -1;
+    else {
+        int left = height(root->left);
+        int right = height(root->right);
+        if(left > right)
+            return left + 1;
+        else return right + 1;
+    }
+}
+
+int nodeQuants(Node *root){
+    if(root == NULL)
+        return 0;
+    else return 1 + nodeQuants(root->left) + nodeQuants(root->right);
+
+    //Hardcore
+    // return (raiz == NULL) ? 0 : 1 + nodeQuants(root->left) + nodeQuants(root->right);
 }
 
 int main(){
@@ -40,13 +99,19 @@ int main(){
     int aux;
     srand(time(0));
 
-    for(int i = 0; i < 10; i++){
+    for(int i = 0; i < TAM; i++){
         aux = rand() % 100 + 1;
         root = insert(root, aux);
         printf("Inserted: %i\n", aux);
     }
 
-    print(root);
-
+    printf("\nLeft view: ");
+    leftView(root);
+    
+    printf("\nInorder traversal: ");
+    inorderTraversal(root);
+    
+    printf("\nNode quants: %d", nodeQuants(root));
+    printf("\nTree height %d", height(root));
     return 0;
 }
