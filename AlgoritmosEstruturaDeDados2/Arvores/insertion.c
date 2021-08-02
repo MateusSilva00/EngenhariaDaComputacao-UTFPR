@@ -60,16 +60,16 @@ Node* Search_v1(Node *root, int num){
     }
 }
 
-Node* Search_v2(Node *root, int num){
+int Search_v2(Node *root, int num){
     while (root){
         if(num < root->data)
             root = root->left;
         else if(num > root->data)
             root = root->right;
         else  
-            return root;
+            return 1;
     }
-    
+    return 0;
 }
 
 int height(Node *root){
@@ -99,19 +99,23 @@ int main(){
     int aux;
     srand(time(0));
 
-    for(int i = 0; i < TAM; i++){
-        aux = rand() % 100 + 1;
-        root = insert(root, aux);
-        printf("Inserted: %i\n", aux);
+    int arr[] = {1, 2,3,4,5,6,7,8,9,10};
+
+    for(int i = 0; i < 10; i++){
+        root = insert(root, arr[i]);
+        printf("Inserted: %i\n", arr[i]);
     }
 
-    printf("\nLeft view: ");
-    leftView(root);
+    int busca = Search_v2(root, 11);
+    printf("Valor: %d\n", busca);
+
+    // printf("\nLeft view: ");
+    // leftView(root);
     
-    printf("\nInorder traversal: ");
-    inorderTraversal(root);
+    // printf("\nInorder traversal: ");
+    // inorderTraversal(root);
     
-    printf("\nNode quants: %d", nodeQuants(root));
-    printf("\nTree height %d", height(root));
+    // printf("\nNode quants: %d", nodeQuants(root));
+    // printf("\nTree height %d", height(root));
     return 0;
 }
