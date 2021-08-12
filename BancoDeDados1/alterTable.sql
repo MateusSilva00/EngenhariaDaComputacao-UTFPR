@@ -21,3 +21,9 @@ ALTER TABLE tbl_Livro
 ADD CONSTRAINT fk_id_editora
 FOREIGN KEY (ID_editora)
 REFERENCES tbl_editoras (ID_editora);
+
+ALTER TABLE tbl_autores
+MODIFY Nome_autor VARCHAR(75);
+
+SELECT * FROM tbl_autores;
+SHOW TABLES FROM db_biblioteca LIKE "tbl_L%";  
