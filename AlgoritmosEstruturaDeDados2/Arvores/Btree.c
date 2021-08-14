@@ -169,16 +169,39 @@ NodeB* insert(NodeB *tree, int key){
     return tree;
 }
 
+void runLeafs(NodeB *tree, int *sum, int *quant){
+    if(tree){
+        if(tree->verify_folha){
+            for(int i = 0; i < tree->nro_chaves; i++){
+                printf("%d ", tree->chaves[i]);
+                *sum = *sum + tree->chaves[i];
+                *quant = *quant + 1;
+            }
+            printf("\n");
+        }
+        else {
+            for(int j = 0; j < ORDEM; j++)
+                runLeafs(tree->filhos[j], sum, quant);
+        }
+    }
+}
+
 int main(){
 
     NodeB* root = create();
+    
+    int arr[17] = {1, 2, 3, 5, 6, 8, 10, 12, 14, 19, 21, 22, 25, 34, 40, 50, 60};
 
-    int arr[14] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
-
-    for (int i = 0; i < 14; i++){
+    for (int i = 0; i < 17; i++){
         root = insert(root, arr[i]);
-        printf("Inserted %d\n", arr[i]);
     }
+
+    int sum = 0;
+    int quant = 0;
+
+    runLeafs(root, &sum, &quant);
+
+    // printf("%d %d", sum, quant);
 
     return 0;
 }
