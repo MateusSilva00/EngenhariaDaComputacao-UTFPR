@@ -186,22 +186,37 @@ void runLeafs(NodeB *tree, int *sum, int *quant){
     }
 }
 
+void fullPages(NodeB *tree, int *quant){
+    if(tree){
+        if(tree->nro_chaves == ORDEM - 1)
+            *quant = *quant + 1;
+        for(int i = 0; i < ORDEM; i++){
+            fullPages(tree->filhos[i], quant);
+        }
+    }
+}
+
 int main(){
 
     NodeB* root = create();
+    // int sum = 0;
+    // int quant = 0;
+    // runLeafs(root, &sum, &quant);
+    // printf("Média das folhas: %d\n", sum / quant);
     
-    int arr[17] = {1, 2, 3, 5, 6, 8, 10, 12, 14, 19, 21, 22, 25, 34, 40, 50, 60};
 
-    for (int i = 0; i < 17; i++){
+    // int arr[17] = {1, 2, 3, 5, 6, 8, 10, 12, 14, 19, 21, 22, 25, 34};
+    int arr[16] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
+
+    for (int i = 0; i < 16; i++){
+        printf("Inserted: %d\n", arr[i]);
         root = insert(root, arr[i]);
     }
-
-    int sum = 0;
+    
     int quant = 0;
+    fullPages(root, &quant);
+    printf("Quantidade páginas cheias: %d", quant);
 
-    runLeafs(root, &sum, &quant);
-
-    // printf("%d %d", sum, quant);
 
     return 0;
 }
