@@ -1,90 +1,101 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct grafoMA{
-    int V; // número de vértices
-    int A; // número de arestas
-    int **matriz;
-}GrafoMA;
+typedef int booleano;
 
-static int** inicar_MA(int n){
+typedef struct graphAM{
+    int V; 
+    int A; 
+    int **matrix;
+}GraphAM;
+
+static int** startMA(int n){
     int i, j;
-    int **matriz = (int **) malloc(n * sizeof(int*));
+    int **matrix = (int **) malloc(n * sizeof(int*));
     
     for(i = 0; i < n; i++)
-        matriz[i] = (int*) malloc(n * sizeof(int));
+        matrix[i] = (int*) malloc(n * sizeof(int));
     
     for(i = 0; i < n; i++)
         for(j = 0; j < n; j++)
-            matriz[i][j] = 0;
+            matrix[i][j] = 0;
     
-    return matriz;
+    return matrix;
 }
 
-static int valida_vertice(GrafoMA* G, int v){
+static booleano validadeVertex(GraphAM* G, int v){
     return (v >= 0) && (v < G->V);
 }
 
-GrafoMA* iniciar_grafoMA(int v){
-    GrafoMA* G = (GrafoMA*) malloc(sizeof(GrafoMA));
+GraphAM* startGraphMA(int v){
+    GraphAM* G = (GraphAM*) malloc(sizeof(GraphAM));
     G->V = v;
     G->A = 0;
-    G->matriz = inicar_MA(G->V);
+    G->matrix = startMA(G->V);
 
     return G;
 }
 
-int aresta_existe(GrafoMA* G, int v1, int v2){
-    return (G) && valida_vertice(G, v1) && valida_vertice(G, v2) && (G->matriz[v1][v2] == 1);
+int edgeExist(GraphAM* G, int v1, int v2){
+    return (G) && validadeVertex(G, v1) && validadeVertex(G, v2) && (G->matrix[v1][v2] == 1);
 }
 
-void inserir_aresta(GrafoMA* G, int v1, int v2){
-    if ((G) && (valida_vertice(G, v1)) && (valida_vertice(G, v2)) && (!aresta_existe(G, v1, v2))){
-        G->matriz[v1][v2] = G->matriz[v2][v1] = 1;
+void insertEdge(GraphAM* G, int v1, int v2){
+    if (!edgeExist(G, v1, v2)){
+        G->matrix[v1][v2] = G->matrix[v2][v1] = 1;
         G->A++;
     }
 }
 
-void remover_aresta(GrafoMA* G, int v1, int v2){
-    if((G) && (valida_vertice(G, v1)) && (valida_vertice(G, v2)) && (aresta_existe(G, v1, v2))){
-        G->matriz[v2][v1] = G->matriz[v1][v2] = 0;
+void removeEdge(GraphAM* G, int v1, int v2){
+    if((G) && (validadeVertex(G, v1)) && (validadeVertex(G, v2)) && (edgeExist(G, v1, v2))){
+        G->matrix[v2][v1] = G->matrix[v1][v2] = 0;
         G->A--;
     }
 }
 
-void imprimir_arestas(GrafoMA* G){
+void printEdges(GraphAM* G){
     int i, j;
 
     for(i = 1; i  < G->V; i++)
         for(j = 0; j < i; j++)
-            if(G->matriz[i][j] == 1)
+            if(G->matrix[i][j] == 1)
                 printf("(%d, %d)\n", i, j);
 }
 
-void liberarGrafo(GrafoMA *G){
+void printMatrix(GraphAM *G){
+    int i, j;
+    for(i = 0; i < G->V; i++){
+        for(j = 0; j < G->V; j++){
+            printf("%d ", G->matrix[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+void liberaGraph(GraphAM *G){
     if(G){
-        free(G->matriz);
+        free(G->matrix);
         free(G);
     }
 }
 
 int main(){
 
-    GrafoMA* grafo = iniciar_grafoMA(5);
+    int size;
+    scanf("%d", &size);
 
-    int arr[5][5] = {{1, 0, 1, 0, 0},
-                    {0, 0, 0, 0, 1},
-                    {1, 1, 1, 0, 0},
-                    {1, 1, 0, 0, 0},
-                    {1, 0, 1, 0, 1}}; 
+    GraphAM *graph = startGraphMA(size);
+    int arr[size][size];
 
-    for(int i = 0; i < 5; i++){
-        for(int j = 0; j < 5; j++){
-            inserir_aresta(grafo, i, j);
+    for (int i = 0; i < size; i++)
+        for (int j = 0; j < size; j++){
+            scanf("%d", &arr[i][j]);
+            if (arr[i][j] == 1)
+                insertEdge(graph, i, j);
         }
-    }
 
-    imprimir_arestas(grafo);
+    printMatrix(graph);
 
     return 0;
 }

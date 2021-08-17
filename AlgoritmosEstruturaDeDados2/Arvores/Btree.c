@@ -119,7 +119,7 @@ NodeB* split_pag(NodeB *pai, int posF_cheio){
     return pai;
 }
 
-NodeB* inserir_pagina_nao_cheia(NodeB *tree, int key){
+NodeB* insertNotFullPage(NodeB *tree, int key){
 
     int i;
     int pos = binary_search(key, tree);
