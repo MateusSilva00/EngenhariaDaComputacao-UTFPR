@@ -36,6 +36,14 @@ GraphAM* startGraphMA(int v){
     return G;
 }
 
+GraphAM* readGraph(GraphAM* G, int size){
+    G = startGraphMA(size);
+    for(int i = 0; i < size; i++)
+        for(int j = 0; j < size; j++)
+            scanf("%d", &G->matrix[i][j]);
+    return G;
+}
+
 int edgeExist(GraphAM* G, int v1, int v2){
     return (G) && validadeVertex(G, v1) && validadeVertex(G, v2) && (G->matrix[v1][v2] == 1);
 }
@@ -82,18 +90,26 @@ void liberaGraph(GraphAM *G){
 
 int main(){
 
+    // GraphAM* graph = startGraphMA(5);
+
+    // int arr[5][5] = {{1, 0, 1, 0, 0},
+    //                 {0, 0, 0, 0, 1},
+    //                 {1, 1, 1, 0, 0},
+    //                 {1, 1, 0, 0, 0},
+    //                 {1, 0, 1, 0, 1}}; 
+
+    // for(int i = 0; i < 5; i++){
+    //     for(int j = 0; j < 5; j++){
+    //         if(arr[i][j] == 1)
+    //             insertEdge(graph, i, j);
+    //     }
+    // }
+
+    GraphAM *graph = NULL;
     int size;
     scanf("%d", &size);
 
-    GraphAM *graph = startGraphMA(size);
-    int arr[size][size];
-
-    for (int i = 0; i < size; i++)
-        for (int j = 0; j < size; j++){
-            scanf("%d", &arr[i][j]);
-            if (arr[i][j] == 1)
-                insertEdge(graph, i, j);
-        }
+    graph = readGraph(graph, size);
 
     printMatrix(graph);
 
