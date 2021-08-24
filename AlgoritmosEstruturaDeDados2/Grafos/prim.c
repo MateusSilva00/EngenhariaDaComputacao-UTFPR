@@ -53,8 +53,7 @@ GraphAM *readGraph(GraphAM *G, int size){
 void printMatrix(GraphAM *G){
     int i, j;
     for (i = 0; i < G->V; i++){
-        for (j = 0; j < G->V; j++)
-        {
+        for (j = 0; j < G->V; j++){
             printf("%d ", G->matrix[i][j]);
         }
         printf("\n");
