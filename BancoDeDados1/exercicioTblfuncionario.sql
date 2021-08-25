@@ -132,26 +132,101 @@ SET salario = salario * 1.1
     AND nome LIKE UPPER('%Marcelo%');
 
 -- 20)	 Retorne o campo (atributo) sexo e a quantidade de funcionários de cada sexo;
-SELECT COUNT(sexo) as 'M/F' FROM tbl_funcionario
-WHERE sexo = 'm' 
-UNION 
-SELECT COUNT(sexo) FROM tbl_funcionario WHERE sexo = 'f';
+SELECT DISTINCT sexo, count(sexo) as NumSexo
+FROM tbl_funcionario
+GROUP BY sexo;
 
 -- 21)	 Retorne o campo sexo e a quantidade de funcionários de cada sexo. Restrinja a consulta aos 
 -- funcionários do Paraná;
-SELECT COUNT(sexo) as 'M/F' FROM tbl_funcionario
-WHERE sexo = 'm' AND uf = 'pr'
-UNION 
-SELECT COUNT(sexo) FROM tbl_funcionario 
-WHERE sexo = 'f' AND uf = 'pr';
+SELECT DISTINCT sexo, uf, count(sexo) as NumSexo
+FROM tbl_funcionario
+WHERE uf = 'pr'
+GROUP BY sexo;
 
 -- 22)	 Retorne o campo sexo e a quantidade de funcionários de cada sexo. Restrinja a consulta aos 
 -- funcionários do Paraná. Só mostre os dados dos casos em que a quantidade de funcionários seja maior que 10;
-SELECT COUNT(sexo) as 'M/F' FROM tbl_funcionario
-WHERE sexo = 'm' AND uf = 'pr'
-IF 'M/F' > 10
-UNION 
-SELECT COUNT(sexo) FROM tbl_funcionario 
-WHERE sexo = 'f' AND uf = 'pr' ;
+SELECT DISTINCT sexo, uf
+FROM tbl_funcionario
+WHERE uf = 'pr'
+GROUP BY sexo
+HAVING COUNT(sexo) > 10;
 
+-- 23)	 Retorne a média salarial, por estado;
+SELECT uf, ROUND(AVG(salario),2)
+FROM tbl_funcionario
+GROUP BY uf;
 
+-- 24)	 Retorne a média salarial, por estado e por sexo;
+SELECT uf, sexo, ROUND(AVG(salario),2)
+FROM tbl_funcionario
+GROUP BY uf, sexo
+ORDER BY uf DESC;
+
+-- 25)	 Retorne a média salarial, por estado e por sexo, mas apenas para os funcionários com idade menor que 30 anos.
+SELECT uf, sexo, ROUND(AVG(salario),2)
+FROM tbl_funcionario
+WHERE Idade < 30
+GROUP BY uf, sexo
+ORDER BY uf DESC;
+
+-- 26)	 Retorne a média salarial, por estado e por sexo, mas apenas para os funcionários com idade menor que 30 
+-- anos e caso a média salarial seja menor que 10.000.
+SELECT uf, sexo, ROUND(AVG(salario),2) as MedSal
+FROM tbl_funcionario
+WHERE Idade < 30 AND salario < 10000
+GROUP BY uf, sexo
+ORDER BY uf DESC;
+
+-- 27)	 Adicione atributos na tabela Funcionário
+ALTER TABLE tbl_funcionario
+ADD qt_filhos SMALLINT,
+ADD hipertenso BOOLEAN;
+
+-- 28)	 Adicione atributos na tabela Funcionário utilizando o conceito de domain;
+-- DOMAIN NÃO EXISTE EM SQL
+
+-- 29)	 Adicione atributos na tabela Funcionário restritos à cláusula check;
+ALTER TABLE tbl_funcionario
+ADD qi INT CHECK (qi > 80);
+
+UPDATE tbl_funcionario
+SET qi = 100;
+UPDATE tbl_funcionario
+SET hipertenso = 0;
+
+-- 30)	 Altere o domínio de atributos na tabela Funcionário 
+-- DOMAIN NÃO EXISTE EM SQL
+
+-- 31)	 Altere o nome de atributos na tabela Funcionário
+ALTER TABLE tbl_funcionario
+RENAME COLUMN salario TO vl_salario;
+
+ALTER TABLE tbl_funcionario
+MODIFY qi TINYINT UNSIGNED;
+
+-- 32)	 Adicione um atributo date para armazenar a data de ingresso de cada funcionário na carreira.
+-- Após, execute as seguintes extrações para o funcionário Bilbo Sonaro Teixeira: Ano de ingresso; mês dia, 
+-- dia do ano, dia da semana. 
+ALTER TABLE tbl_funcionario
+ADD dt_ingresso DATE;
+
+UPDATE tbl_funcionario
+SET dt_ingresso = '2016-07-04'
+WHERE nome = "Bilbo Sonaro Teixeira";
+
+UPDATE tbl_funcionario
+SET dt_ingresso = CURDATE();
+
+SELECT nome, YEAR(dt_ingresso), MONTHNAME(dt_ingresso), DAY(dt_ingresso), DAYNAME(dt_ingresso) as DiaSemana
+FROM tbl_funcionario
+WHERE nome LIKE 'Bilbo%';
+
+-- 33)	 Para cada extração da consulta anterior, concatena junto ao dado extraído um caracter ‘-‘ acompanhado do 
+-- nome do funcionário. 
+SELECT nome, CONCAT(YEAR(dt_ingresso), "-", MONTH(dt_ingresso), "-", DAY(dt_ingresso), " ", DAYNAME(dt_ingresso)) as DiaIngresso
+FROM tbl_funcionario
+WHERE nome LIKE 'Bilbo%';
+
+-- 34)	 Repita a consulta anterior, agora para todos os funcionários. 
+SELECT nome, CONCAT(YEAR(dt_ingresso), "-", MONTH(dt_ingresso), "-", DAY(dt_ingresso), " ", DAYNAME(dt_ingresso)) as DiaIngresso
+FROM tbl_funcionario;
