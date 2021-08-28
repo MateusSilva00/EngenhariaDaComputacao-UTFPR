@@ -143,7 +143,7 @@ NodeB* insertNotFullPage(NodeB *tree, int key){
                 pos++;
         }
 
-        tree->filhos[pos] = inserir_pagina_nao_cheia(tree->filhos[pos], key);
+        tree->filhos[pos] = insertNotFullPage(tree->filhos[pos], key);
     }
     return tree;
 }
@@ -160,11 +160,12 @@ NodeB* insert(NodeB *tree, int key){
         nova_pag->filhos[0] = aux;
 
         nova_pag = split_pag(nova_pag, 0);
-        nova_pag = inserir_pagina_nao_cheia(nova_pag, key);
+        nova_pag = insertNotFullPage(nova_pag, key);
 
         tree = nova_pag;
     }
-    else tree = inserir_pagina_nao_cheia(aux, key);
+    else
+        tree = insertNotFullPage(aux, key);
 
     return tree;
 }
