@@ -10,8 +10,8 @@ class Simulador:
 
     def incluirVeiculo(self):
         marca_veiculo = input('\tDigite a marca do Veículo: ')
-        marca_veiculo = Veiculo(marca_veiculo) # Criar o objeto veículo com base na marca da carro
-        self.__veiculos.append(marca_veiculo) # Adiciona o veículo na lista de veículos
+        veiculo = Veiculo(marca_veiculo) # Criar o objeto veículo com base na marca da carro
+        self.__veiculos.append(veiculo) # Adiciona o veículo na lista de veículos
         time.sleep(3)
 
     def excluirVeiculo(self):
