@@ -1,0 +1,7 @@
+4543
+Mustang
+0
+False
+3.5
+72895
+[<Roda.Roda object at 0x7f159d426e50>, <Roda.Roda object at 0x7f159d3dc040>, <Roda.Roda object at 0x7f159d3dc0d0>, <Roda.Roda object at 0x7f159ca05a00>]

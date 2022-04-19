@@ -1,4 +1,4 @@
-# Trabalho Prático - Parte 1 - 
+# Trabalho Prático - Parte 1  
 
 O seguinte trabalho tem como objetivo fazer um simulador de corridas utilizando o conceito de classes e objetos. Foi desenvolvido em Python3 para a disciplina de Programação Orientada a Objetos do 4º período de Engenharia da Computação.
 
@@ -12,20 +12,20 @@ Utilizando dicas de tipo
 > def somar(a: int, b: int) -> int:<br>
 > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return a + b<br>
 
-**Importante** lembrar que o Python não faz nenhuma verificação para saber se as dicas de tipo estão corretas. Portanto, caso fossem inseridos floats na função somar, ela ainda funcionaria
+**Importante** lembrar que o Python não faz nenhuma verificação para saber se as dicas de tipo estão corretas. Portanto, caso fossem inseridos floats na função somar, ela ainda seria executada.
 
 # Arquivos
 ###  Roda.py
-Dentro do arquivo Roda.py será a definição da classe roda. Esta classe possui apenas o atributo "calibragemPneu", o método setCalibragem para mudar o estado da roda e o método getCalibragem para retorna o estado da Roda 
+Dentro do arquivo Roda.py será a definição da classe roda. Esta classe possui apenas o atributo "calibragemPneu", o método setCalibragem para mudar o estado da roda e o método getCalibragem para retorna o estado da Roda.
 
 ### Veículo.py
 Este arquivo é para as definições da classe veículo. Esta classe possuí diversas atributos, porém a única que será definida pelo usuário será a marca do carro. 
 
 ### Simulador.py
-Nesse arquivo será instânciado os veículos com suas rodas e um menu será aberto para fazer alterações em seus atributos. Também é possívlel mover-se com os carros na pista de corrida 
+Nesse arquivo será instânciado os veículos com suas rodas e um menu será aberto para fazer alterações em seus atributos. Também é possívlel mover-se com os carros na pista de corrida. 
 
 ### util.py
-Algumas funções que não pertencem necessariamente a nenhuma classe porém são chamadas diversas vezes em simulador.py
+Algumas funções que não pertencem necessariamente a nenhuma classe porém são chamadas diversas vezes em simulador.py.
 
 ### main.py
 Arquivo principal onde será executado a uma instância da classe simulador.

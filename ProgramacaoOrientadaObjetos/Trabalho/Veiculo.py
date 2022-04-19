@@ -7,8 +7,8 @@ class Veiculo():
 
     # Método construtor. Inicializa automaticamente quando a classe for chamada
     def __init__(self, marca: str):
-        self.__marca = marca
         self.__id: str = str(randint(1000,9999)) # Gera número aleatório entre 1000 e 9999 e depois converte para string
+        self.__marca = marca
         self.__distanciaPercorrida: float = 0
         self.__ipva: bool = bool(choice([True, False]))
         self.__combustivel: float = 3.5
@@ -17,8 +17,10 @@ class Veiculo():
         self.__rodas: list = [Roda() for _ in range(self.__quantidadeRodas)] # Cria 4 instâncias de roda
         print(f"\tVeículo {self.__marca} criado com sucesso!\n\tSeu id é: {self.__id}")
 
-    def mover():
-        pass
+    def mover(self):
+        if self.__combustivel > 0.55 and self.__ipva:
+            if self.__rodas.getCalibragem():
+                print("Carro pode se mover")
 
     def imprimirCarroID(self):
         return f"Carro {self.__marca} - ID {self.__id}"
@@ -40,7 +42,7 @@ class Veiculo():
  
     # Método 'mágico' para representar um objeto
     def __str__(self):
-        return f"Carro: {self.__id} \nÉ da marca {self.__marca} \nPossui {self.__quantidadeRodas} rodas e esta com seu IPVA {self.getIpva()} \n{self.imprimirRodas()} \nO valor da venda é de R$ {self.__valorvenda} \nPercorreu uma distância de {self.__distanciaPercorrida} km e ainda possui {self.__combustivel} litros de gasolina"
+        return f"\n{self.__marca}\n{self.__id}\n{self.__distanciaPercorrida}\n{self.__ipva}\n{self.__combustivel}\n{self.__valorvenda}\n{self.__rodas}"
 
     def getId(self) -> int:
         return int(self.__id)

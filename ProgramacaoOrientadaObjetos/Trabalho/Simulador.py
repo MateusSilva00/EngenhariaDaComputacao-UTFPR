@@ -8,12 +8,14 @@ class Simulador:
     def __init__(self):
         self.__veiculos = [] # Inicializa uma lista vazia 
 
+    # Função 1
     def incluirVeiculo(self):
         marca_veiculo = input('\tDigite a marca do Veículo: ')
         veiculo = Veiculo(marca_veiculo) # Criar o objeto veículo com base na marca da carro
         self.__veiculos.append(veiculo) # Adiciona o veículo na lista de veículos
         time.sleep(3)
 
+    # Função 2
     def excluirVeiculo(self):
         id  =  exibirCarrosListados(self.__veiculos, "Deseja excluir qual carro(id)? ")
         
@@ -29,6 +31,7 @@ class Simulador:
 
         time.sleep(3)
 
+    # Função 3
     def abastecerVeiculo(self):
         id = exibirCarrosListados(self.__veiculos, "Qual Veículo deseja abastecer(id)? ")
         for i in range(len(self.__veiculos)):
@@ -42,12 +45,15 @@ class Simulador:
             print("Veículo não encontrado")
         time.sleep(3)
 
+    # Função 4
     def movimentarVeiculo(self):
         pass
-
+    
+    # Função 5
     def movimentarVeiculos(self):
         pass
 
+    # Função 6
     def imprimirVeiculo(self):
         id = exibirCarrosListados(self.__veiculos, "Qual veículo deseja imprimir(id)? ")
         for i in range(len(self.__veiculos)):
@@ -60,10 +66,12 @@ class Simulador:
             print("Veículo não encontrado")
         time.sleep(20)
 
+    # Função 7
     def imprimirVeiculos(self):
         for i in range(len(self.__veiculos)):
             print(self.__veiculos[i].__str__())
 
+    # Função 8
     def calibrar_esvaziar_PneuEspecifico(self):
         id = exibirCarrosListados(self.__veiculos, "Deseja calibrar/esvaziar a roda de qual carro(id) ? ")
         for i in range(len(self.__veiculos)):
@@ -85,7 +93,8 @@ class Simulador:
         if not encontrou:
             print("Veículo não encontrado")
         time.sleep(5)
-                    
+
+    # Função 9
     def calibrarPneus(self):
         id = exibirCarrosListados(self.__veiculos, "Deseja calibrar a roda de qual carro(id)? ")
         for i in range(len(self.__veiculos)):
@@ -100,6 +109,7 @@ class Simulador:
             print("Veículo não encontrado")
         time.sleep(3.5)
 
+    # Função 10
     def esvaziarPneus(self):
         id = exibirCarrosListados(
             self.__veiculos, "Deseja calibrar a roda de qual carro(id)? ")
@@ -115,14 +125,26 @@ class Simulador:
             print("Veículo não encontrado")
         time.sleep(3.5)
 
+    # Função 11
     def imprimirPista(self):
         pass
 
+    # Função 12
     def gravarVeiculos(self):
-        pass
+        for veiculo in self.__veiculos:
+            f = open('veiculos.txt', 'a') # Abre o arquivo veiculos.txt no modo append
+            f.write(veiculo.__str__())
 
+    # Função 13
     def lerVeiculos(self):
-        pass
+        file = open('veiculos.txt', 'r')
+        lines = file.readlines()
+        print(lines)
+        print(type(lines))
+        print(len(lines))
+        time.sleep(4)
+
+
 
     def menu(self):
         
@@ -153,8 +175,10 @@ class Simulador:
         elif codigo_menu == 3:
             self.abastecerVeiculo()
         elif codigo_menu == 4:
+            # movimentarVeiculo()
             pass
         elif codigo_menu == 5:
+            # movimentarVeiculos()
             pass
         elif codigo_menu == 6:
             self.imprimirVeiculo()
@@ -167,10 +191,11 @@ class Simulador:
         elif codigo_menu == 10:
             self.esvaziarPneus()
         elif codigo_menu == 11:
-            pass 
+            # imprimirPista()
+            pass
         elif codigo_menu == 12:
-            pass
+            self.gravarVeiculos()
         elif codigo_menu == 13:
-            pass
+            self.lerVeiculos()
         elif codigo_menu == 14:
             sys.exit('\tAté breve bro!')
