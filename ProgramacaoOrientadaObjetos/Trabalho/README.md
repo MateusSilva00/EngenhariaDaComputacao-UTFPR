@@ -3,7 +3,7 @@
 O seguinte trabalho tem como objetivo fazer um simulador de corridas utilizando o conceito de classes e objetos. Foi desenvolvido em Python3 para a disciplina de Programação Orientada a Objetos do 4º período de Engenharia da Computação.
 
 ## Dicas de Tipo
-As dicas de tipo são uma boa prática em programação em Python. Elas servem como um modo de incluir anotações sobre os tipos esperados de variáveis, parâmetros e tipos de retorno em funções. <br>
+As dicas de tipo são uma boa prática em programação em Python. Elas servem como um modo de incluir anotações sobre os tipos esperados de variáveis, parâmetros e retorno em funções. <br>
 Exemplo:
 > def somar(a,b):<br>
 >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return a + b<br>
