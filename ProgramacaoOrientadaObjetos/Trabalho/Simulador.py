@@ -1,4 +1,3 @@
-from turtle import penup
 from Veiculo import *
 from util import *
 import sys
@@ -6,123 +5,156 @@ import time
 
 class Simulador:
     def __init__(self):
-        self.__veiculos = [] # Inicializa uma lista vazia 
+        self.__veiculos = [] # Inicializa uma lista vazia
 
     # Função 1
     def incluirVeiculo(self):
         marca_veiculo = input('\tDigite a marca do Veículo: ')
         veiculo = Veiculo(marca_veiculo) # Criar o objeto veículo com base na marca da carro
         self.__veiculos.append(veiculo) # Adiciona o veículo na lista de veículos
-        time.sleep(3)
+        time.sleep(3.5)
 
     # Função 2
     def excluirVeiculo(self):
-        id  =  exibirCarrosListados(self.__veiculos, "Deseja excluir qual carro(id)? ")
-        
-        for i in range(len(self.__veiculos)): # Percorre a lista para encontrar o veículo
-            if id == self.__veiculos[i].getId(): # Verifica se o código digitado existe
-                print("Veículo encontrado e excluído com sucesso")
-                del self.__veiculos[i]
-                encontrou = True
-            break
+        if len(self.__veiculos) != 0:
+            id  =  exibirCarrosListados(self.__veiculos, "Deseja excluir qual carro(id)? ")
+            encontrou = False
+            for i in range(len(self.__veiculos)): # Percorre a lista para encontrar o veículo
+                if id == self.__veiculos[i].getId(): # Verifica se o código digitado existe
+                    print("Veículo encontrado e excluído com sucesso")
+                    del self.__veiculos[i]
+                    encontrou = True
+                break
 
-        if not encontrou:
-            print("Veículo não encontrado")
+            if not encontrou:
+                print("Veículo não encontrado")
+        else:
+            print("Não há veículos cadastrados")
 
-        time.sleep(3)
+
+        time.sleep(3.5)
 
     # Função 3
     def abastecerVeiculo(self):
-        id = exibirCarrosListados(self.__veiculos, "Qual Veículo deseja abastecer(id)? ")
-        for i in range(len(self.__veiculos)):
-            if id == self.__veiculos[i].getId():
-                encontrou = True
-                abastecer = int(input("Quanto litros deseja abastecer: "))
-                self.__veiculos[i].setCombustivel(abastecer)
-            break
+        if len(self.__veiculos) != 0:
+            id = exibirCarrosListados(self.__veiculos, "Qual Veículo deseja abastecer(id)? ")
+            encontrou = False
+            for i in range(len(self.__veiculos)):
+                if id == self.__veiculos[i].getId():
+                    encontrou = True
+                    abastecer = float(input("Quanto litros deseja abastecer: "))
+                    self.__veiculos[i].setCombustivel(abastecer)
+                break
 
-        if not encontrou:
-            print("Veículo não encontrado")
-        time.sleep(3)
+            if not encontrou:
+                print("Veículo não encontrado")
+        else:
+            print("Não há veículos cadastrados")
+
+        time.sleep(3.5)
 
     # Função 4
     def movimentarVeiculo(self):
         pass
-    
+
     # Função 5
     def movimentarVeiculos(self):
         pass
 
     # Função 6
     def imprimirVeiculo(self):
-        id = exibirCarrosListados(self.__veiculos, "Qual veículo deseja imprimir(id)? ")
-        for i in range(len(self.__veiculos)):
-            if id == self.__veiculos[i].getId():
-                encontrou = True
-                print(self.__veiculos[i].__str__())
-            break
+        if len(self.__veiculos) != 0:
+            id = exibirCarrosListados(self.__veiculos, "Qual veículo deseja imprimir(id)? ")
+            encontrou = False
+            for i in range(len(self.__veiculos)):
+                if id == self.__veiculos[i].getId():
+                    encontrou = True
+                    print(self.__veiculos[i].__str__())
+                break
 
-        if not encontrou:
-            print("Veículo não encontrado")
-        time.sleep(20)
+            if not encontrou:
+                print("Veículo não encontrado")
+        else:
+            print("Não há veículos cadastrados")
+        time.sleep(6)
 
     # Função 7
     def imprimirVeiculos(self):
-        for i in range(len(self.__veiculos)):
-            print(self.__veiculos[i].__str__())
+        if len(self.__veiculos) != 0:
+            for i in range(len(self.__veiculos)):
+                print(self.__veiculos[i].__str__())
+        else:
+            print("Não há veículos cadastrados")
+        time.sleep(5)
 
     # Função 8
     def calibrar_esvaziar_PneuEspecifico(self):
-        id = exibirCarrosListados(self.__veiculos, "Deseja calibrar/esvaziar a roda de qual carro(id) ? ")
-        for i in range(len(self.__veiculos)):
-            if id == self.__veiculos[i].getId():
-                encontrou = True
-                self.__veiculos[i].imprimirRodas()
-                acao = int(input("Deseja\n1 - Esvaziar\n2 - Calibrar ? "))
-                
-                if acao == 1:
-                    roda = int(input("Qual roda deseja esvaziar ? ")) - 1
-                    self.__veiculos[i].mudarRodaEstado(roda, False)
-                else:
-                    roda = int(input("Qual roda deseja calibrar ? ")) - 1
-                    self.__veiculos[i].mudarRodaEstado(roda, True)
-            break
+        if len(self.__veiculos) != 0:
+            id = exibirCarrosListados(self.__veiculos, "Deseja calibrar/esvaziar a roda de qual carro(id) ? ")
+            encontrou = False
+            for i in range(len(self.__veiculos)):
+                if id == self.__veiculos[i].getId():
+                    encontrou = True
+                    self.__veiculos[i].imprimirRodas()
+                    acao = int(input("Deseja\n1 - Esvaziar\n2 - Calibrar ? "))
 
-        self.__veiculos[i].imprimirRodas()
+                    if acao == 1:
+                        roda = int(input("Qual roda deseja esvaziar ? ")) - 1
+                        self.__veiculos[i].mudarRodaEstado(roda, False)
+                    else:
+                        roda = int(input("Qual roda deseja calibrar ? ")) - 1
+                        self.__veiculos[i].mudarRodaEstado(roda, True)
+                break
 
-        if not encontrou:
-            print("Veículo não encontrado")
-        time.sleep(5)
+            self.__veiculos[i].imprimirRodas()
+
+            if not encontrou:
+                print("Veículo não encontrado")
+
+        else:
+            print("Não há veículos cadastrados")
+
+        time.sleep(3.5)
 
     # Função 9
     def calibrarPneus(self):
-        id = exibirCarrosListados(self.__veiculos, "Deseja calibrar a roda de qual carro(id)? ")
-        for i in range(len(self.__veiculos)):
-            if id == self.__veiculos[i].getId():
-                encontrou = True
-                for roda in range(4):
-                    self.__veiculos[i].mudarRodaEstado(roda, True)
-            break
+        if len(self.__veiculos) != 0:
+            id = exibirCarrosListados(self.__veiculos, "Deseja calibrar a roda de qual carro(id)? ")
+            encontrou = False
+            for i in range(len(self.__veiculos)):
+                if id == self.__veiculos[i].getId():
+                    encontrou = True
+                    for roda in range(4):
+                        self.__veiculos[i].mudarRodaEstado(roda, True)
+                break
 
-        self.__veiculos[i].imprimirRodas()
-        if not encontrou:
-            print("Veículo não encontrado")
+            self.__veiculos[i].imprimirRodas()
+            if not encontrou:
+                print("Veículo não encontrado")
+
+        else:
+            print("Não há veículos cadastrados")
         time.sleep(3.5)
 
     # Função 10
     def esvaziarPneus(self):
-        id = exibirCarrosListados(
-            self.__veiculos, "Deseja calibrar a roda de qual carro(id)? ")
-        for i in range(len(self.__veiculos)):
-            if id == self.__veiculos[i].getId():
-                encontrou = True
-                for roda in range(4):
-                    self.__veiculos[i].mudarRodaEstado(roda, False)
-            break
+        if len(self.__veiculos) != 0:
+            id = exibirCarrosListados(self.__veiculos, "Deseja calibrar a roda de qual carro(id)? ")
+            encontrou = False
+            for i in range(len(self.__veiculos)):
+                if id == self.__veiculos[i].getId():
+                    encontrou = True
+                    for roda in range(4):
+                        self.__veiculos[i].mudarRodaEstado(roda, False)
+                break
 
-        self.__veiculos[i].imprimirRodas()
-        if not encontrou:
-            print("Veículo não encontrado")
+
+            self.__veiculos[i].imprimirRodas()
+            if not encontrou:
+                print("Veículo não encontrado")
+
+        else:
+            print("Não há veículos cadastrados")
         time.sleep(3.5)
 
     # Função 11
@@ -131,9 +163,14 @@ class Simulador:
 
     # Função 12
     def gravarVeiculos(self):
-        for veiculo in self.__veiculos:
-            f = open('veiculos.txt', 'a') # Abre o arquivo veiculos.txt no modo append
-            f.write(veiculo.__str__())
+        if len(self.__veiculos) != 0:
+            for veiculo in self.__veiculos:
+                f = open('veiculos.txt', 'a') # Abre o arquivo veiculos.txt no modo append
+                f.write(veiculo.__str__())
+            print("Veículo(s) gravado com sucesso!\n")
+        else:
+            print('Não há veículos cadastrados')
+        time.sleep(4)
 
     # Função 13
     def lerVeiculos(self):
@@ -147,9 +184,9 @@ class Simulador:
 
 
     def menu(self):
-        
+
         clearConsole() # Função para limparar o console
-        
+
         print("\tBem Vindo ao simulador de corrida\nEscolha uma das opções abaixo:")
         print("\t1 - Incluir Veículo")
         print('\t2 - Excluir Veículo')
@@ -165,7 +202,7 @@ class Simulador:
         print('\t12 - Gravar veículos em arquivo')
         print('\t13 - Ler veículos do arquivo')
         print('\t14 - Sair da aplicação')
-        
+
         codigo_menu = int(input())
 
         if codigo_menu == 1:

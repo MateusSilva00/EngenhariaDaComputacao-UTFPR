@@ -10,3 +10,6 @@ class Roda:
         if self.__calibragemPneu:
             return 'Calibrada'
         return 'Vazia'
+
+    def __str__(self):
+        return "Magia"
