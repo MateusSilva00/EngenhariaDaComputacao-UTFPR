@@ -38,3 +38,57 @@ Vale pontuar algumas equivalências entre a linguagem Python e Java
 |Refererência a classe | `self`|`this`|
 |Converter string para int |`int()`            |`Integer.parseInt()`|
 |Função / Métodos|`def funcao()`| `static void funcao()`|
+
+
+```mermaid
+classDiagram
+
+class Simulador{
+    -veiculos: list
+    +incluirVeiculo()
+    +excluirVeiculo()
+    +abastecerVeiculo()
+    +imprimirVeiculo()
+    +imprimirVeiculos()
+    +calibrar_esvaziar_PneuEspecifico()
+    +calibrarPneus()
+    +esvaziarPneus()
+    +imprimirPista()
+    +gravarVeiculos()
+    +lerVeiculos()
+    +pagarIpva()
+    +menu()
+}
+
+class Veículo{
+    -marca: str
+    -cor : str
+    -distanciaPercorrida: float
+    -ipva: bool
+    -combustivel: float
+    -quantidadeRodas: int
+    -valorVenda: int
+    -rodas: list
+    +__init__()
+    +getIpva()
+    +getId
+    +setCombustivel()
+    +setIpva()
+    +imprimirCarroID()
+    +imprimirRodas()
+    +imprimirCarroCompleto()
+    +desenhaCarro()
+    +mover()
+}
+
+class Roda{
+    -calibragemPenu: bool
+    +setCalibragem()
+    +getCalibragem()
+    +__str__()
+}
+
+Simulador "1" o-- "1..n" Veículo 
+Veículo "1" o-- "2..n" Roda
+```
+
