@@ -2,6 +2,7 @@ from random import randint
 from random import uniform
 from random import choice
 from Roda import *
+import math
 
 class Veiculo():
 
@@ -32,7 +33,6 @@ class Veiculo():
 
     def setIpva(self):
         self.__ipva = True
-        print(f"Ipva paga com sucesso")
 
     def imprimirCarroID(self) -> str:
         return f"Carro {self.__marca} - ID {self.__id}"
@@ -49,18 +49,19 @@ class Veiculo():
 
 
     def desenhaCarro(self):
-        print("    ____".rjust(self.__distanciaPercorrida))
-        print(" __/  |_ \_".rjust(self.__distanciaPercorrida))
-        print("|  _     _``-. ".rjust(self.__distanciaPercorrida))
-        print("'-(_)---(_)--'".rjust(self.__distanciaPercorrida))
+        posicao = math.floor(self.__distanciaPercorrida) * 3
+        print("    ____".rjust(posicao-6))
+        print(" __/  |_ \_".rjust(posicao-3))
+        print("|  _     _``-. ".rjust(posicao+1))
+        print("'-(_)---(_)--'".rjust(posicao))
         print("\n\n")
 
     def imprimirCarroCompleto(self):
         print(self.imprimirCarroID())
         self.imprimirRodas()
-        print(f"Distância percorrida {self.__distanciaPercorrida}")
+        print(f"Distância percorrida {self.__distanciaPercorrida:.2f}")
         print(f"Ipva {self.getIpva()}")
-        print(f"Combustivel em {self.__combustivel} litros")
+        print(f"Combustivel em {self.__combustivel:.2f} litros")
         print(f"Valor da venda R${self.__valorvenda}\n")
 
 
@@ -71,7 +72,10 @@ class Veiculo():
                     if self.__rodas[i].getCalibragem() == 'Vazia':
                         print('Há rodas vazias')
                         return 
-                print("Vai andar")
+                blocos = (self.__combustivel / 0.55)
+                self.__combustivel = self.__combustivel % 0.55
+                self.__distanciaPercorrida += blocos
+                print(f"Carro {self.__id} andou {blocos:.2f} blocos")
             else:
                 print("Combustível insuficiente")
         else:

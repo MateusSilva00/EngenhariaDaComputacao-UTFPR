@@ -7,7 +7,7 @@ import os
 
 class Simulador:
     def __init__(self):
-        self.__veiculos = [] # Inicializa uma lista vazia 
+        self.__veiculos: list = [] # Inicializa uma lista vazia 
 
     # Função 1
     def incluirVeiculo(self):
@@ -26,7 +26,7 @@ class Simulador:
                     print("Veículo encontrado e excluído com sucesso")
                     del self.__veiculos[i]
                     encontrou = True
-                break
+                    break
 
             if not encontrou:
                 print("Veículo não encontrado")
@@ -47,7 +47,7 @@ class Simulador:
                     encontrou = True
                     abastecer = int(input("Quanto litros deseja abastecer: "))
                     self.__veiculos[i].setCombustivel(abastecer)
-                break
+                    break
 
             if not encontrou:
                 print("Veículo não encontrado")
@@ -66,7 +66,7 @@ class Simulador:
                 if id == self.__veiculos[i].getId():
                     encontrou = True
                     self.__veiculos[i].mover()
-                break
+                    break
 
             if not encontrou:
                 print("Veículo não encontrado")
@@ -78,7 +78,13 @@ class Simulador:
 
     # Função 5
     def movimentarVeiculos(self):
-        pass
+        if len(self.__veiculos) != 0:
+            for i in range(len(self.__veiculos)):
+                self.__veiculos[i].imprimirCarroID()
+                self.__veiculos[i].mover()
+            time.sleep(5)
+        else:
+            print("Sem carros cadastrados")
 
     # Função 6
     def imprimirVeiculo(self):
@@ -90,7 +96,8 @@ class Simulador:
                 if id == self.__veiculos[i].getId():
                     encontrou = True
                     self.__veiculos[i].imprimirCarroCompleto()
-                break
+                    break
+
             if not encontrou:
                 print("Veículo não encontrado")
 
@@ -125,7 +132,8 @@ class Simulador:
                     else:
                         roda = int(input("Qual roda deseja calibrar ? ")) - 1
                         self.__veiculos[i].mudarRodaEstado(roda, True)
-                break
+                    
+                    break
 
             self.__veiculos[i].imprimirRodas()
 
@@ -146,7 +154,7 @@ class Simulador:
                     encontrou = True
                     for roda in range(4):
                         self.__veiculos[i].mudarRodaEstado(roda, True)
-                break
+                    break
 
             self.__veiculos[i].imprimirRodas()
             if not encontrou:
@@ -165,7 +173,7 @@ class Simulador:
                     encontrou = True
                     for roda in range(4):
                         self.__veiculos[i].mudarRodaEstado(roda, False)
-                break
+                    break
 
             self.__veiculos[i].imprimirRodas()
 
@@ -190,7 +198,6 @@ class Simulador:
 
     # Função 12
     def gravarVeiculos(self):
-
         if len(self.__veiculos) != 0:
             if os.path.isfile('veiculos.txt'):
                 mode:str = 'ab' # Se o arquivo já existe, abra no modo append 
@@ -204,7 +211,7 @@ class Simulador:
             print("veiculos gravados com sucesso")
         
         else:
-            print('Não veículos para serem gravados')
+            print('Não há veículos para serem gravados')
         
         time.sleep(3.2)
 
@@ -220,6 +227,16 @@ class Simulador:
             print("Nenhum arquivo encontrado")    
         time.sleep(3.2) 
 
+    # Função 14
+    def pagarIpva(self):
+        if len(self.__veiculos) != 0:
+            for i in range(len(self.__veiculos)):
+                self.__veiculos[i].setIpva()
+            print("Ipva's pagos com sucesso")
+            time.sleep(4)
+        else:
+            print("Ainda não há carros cadastrados!\n")
+            time.sleep(2.5)
 
     def menu(self):
         
@@ -239,7 +256,8 @@ class Simulador:
         print('\t11 - Imprimir pista de corrida')
         print('\t12 - Gravar veículos em arquivo')
         print('\t13 - Ler veículos do arquivo')
-        print('\t14 - Sair da aplicação')
+        print('\t14 - Pagar IPVA de todos os veículos')
+        print('\t15 - Sair da aplicação')
                 
         codigo_menu = int(input("\nQual sua opção: "))
 
@@ -253,7 +271,7 @@ class Simulador:
             self.movimentarVeiculo()
             pass
         elif codigo_menu == 5:
-            # movimentarVeiculos()
+            self.movimentarVeiculos()
             pass
         elif codigo_menu == 6:
             self.imprimirVeiculo()
@@ -273,6 +291,8 @@ class Simulador:
         elif codigo_menu == 13:
             self.lerVeiculos()
         elif codigo_menu == 14:
+            self.pagarIpva()
+        elif codigo_menu == 15:
             sys.exit('Até breve bro!')
         else:
             print("Codigo inválido, tente novamente")
