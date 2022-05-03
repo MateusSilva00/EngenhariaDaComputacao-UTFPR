@@ -12,4 +12,4 @@ class Roda:
         return 'Vazia'
 
     def __str__(self):
-        return "Magia"
+        return self.getCalibragem()
