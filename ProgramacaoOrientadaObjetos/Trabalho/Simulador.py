@@ -10,14 +10,14 @@ class Simulador:
         self.__veiculos: list = [] # Inicializa uma lista vazia 
 
     # Função 1
-    def incluirVeiculo(self):
-        marca_veiculo = input('Digite a marca do Veículo: ')
+    def incluirVeiculo(self) -> None:
+        marca_veiculo = input('Digite a marca do Veículo: ').split()
         veiculo = Veiculo(marca_veiculo) # Criar o objeto veículo com base na marca da carro
-        self.__veiculos.append(veiculo) # Adiciona o veículo na lista de veículos
+        self.__veiculos.append(veiculo) # Adicciona o veículo na lista de veículos
         time.sleep(3)
 
     # Função 2
-    def excluirVeiculo(self):
+    def excluirVeiculo(self) -> None:
         if len(self.__veiculos) != 0:
             id  =  exibirCarrosListados(self.__veiculos, "Deseja excluir qual carro(id)? ")
             encontrou = False
@@ -37,7 +37,7 @@ class Simulador:
         time.sleep(3)
 
     # Função 3
-    def abastecerVeiculo(self):
+    def abastecerVeiculo(self) -> None:
         if len(self.__veiculos) != 0:
 
             id = exibirCarrosListados(self.__veiculos, "Qual Veículo deseja abastecer(id)? ")
@@ -45,7 +45,7 @@ class Simulador:
             for i in range(len(self.__veiculos)):
                 if id == self.__veiculos[i].getId():
                     encontrou = True
-                    abastecer = int(input("Quanto litros deseja abastecer: "))
+                    abastecer = float(input("Quanto litros deseja abastecer: "))
                     self.__veiculos[i].setCombustivel(abastecer)
                     break
 
@@ -58,7 +58,7 @@ class Simulador:
         time.sleep(3)
 
     # Função 4
-    def movimentarVeiculo(self):
+    def movimentarVeiculo(self) -> None:
         if len(self.__veiculos) != 0:
             id = exibirCarrosListados(self.__veiculos, "Qual veículo deseja movimentar(id)? ")
             encontrou = False
@@ -77,7 +77,7 @@ class Simulador:
         time.sleep(4)
 
     # Função 5
-    def movimentarVeiculos(self):
+    def movimentarVeiculos(self) -> None:
         if len(self.__veiculos) != 0:
             for i in range(len(self.__veiculos)):
                 self.__veiculos[i].imprimirCarroID()
@@ -87,7 +87,7 @@ class Simulador:
             print("Sem carros cadastrados")
 
     # Função 6
-    def imprimirVeiculo(self):
+    def imprimirVeiculo(self) -> None:
         if len(self.__veiculos) != 0:
             id = exibirCarrosListados(self.__veiculos, "Qual veículo deseja imprimir(id)? ")
             encontrou = False
@@ -106,7 +106,7 @@ class Simulador:
         time.sleep(7)
 
     # Função 7
-    def imprimirVeiculos(self):
+    def imprimirVeiculos(self) -> None:
         if len(self.__veiculos) != 0:
             for i in range(len(self.__veiculos)):
                 self.__veiculos[i].imprimirCarroCompleto()
@@ -116,7 +116,7 @@ class Simulador:
         time.sleep(15)
 
     # Função 8
-    def calibrar_esvaziar_PneuEspecifico(self):
+    def calibrar_esvaziar_PneuEspecifico(self) -> None:
         if len(self.__veiculos) != 0:
             id = exibirCarrosListados(self.__veiculos, "Deseja calibrar/esvaziar a roda de qual carro(id) ? ")
             encontrou = False
@@ -145,7 +145,7 @@ class Simulador:
         time.sleep(5)
 
     # Função 9
-    def calibrarPneus(self):
+    def calibrarPneus(self) -> None:
         if len(self.__veiculos) != 0:
             id = exibirCarrosListados(self.__veiculos, "Deseja calibrar a roda de qual carro(id)? ")
             encontrou = False
@@ -164,7 +164,7 @@ class Simulador:
         time.sleep(3.5)
 
     # Função 10
-    def esvaziarPneus(self):
+    def esvaziarPneus(self) -> None:
         if len(self.__veiculos) != 0:
             encontrou = False
             id = exibirCarrosListados(self.__veiculos, "Deseja esvaziar a roda de qual carro(id)? ")
@@ -186,7 +186,7 @@ class Simulador:
         time.sleep(3.5)
 
     # Função 11
-    def imprimirPista(self):
+    def imprimirPista(self) -> None:
         if len(self.__veiculos) != 0:
             for i in range(len(self.__veiculos)):
                 self.__veiculos[i].desenhaCarro()
@@ -197,7 +197,7 @@ class Simulador:
             time.sleep(2.5)
 
     # Função 12
-    def gravarVeiculos(self):
+    def gravarVeiculos(self) -> None:
         if len(self.__veiculos) != 0:
             if os.path.isfile('veiculos.txt'):
                 mode:str = 'ab' # Se o arquivo já existe, abra no modo append 
@@ -216,7 +216,7 @@ class Simulador:
         time.sleep(3.2)
 
     # Função 13
-    def lerVeiculos(self):
+    def lerVeiculos(self) -> None:
         if os.path.isfile('veiculos.txt'):
             with open('veiculos.txt', "rb") as file:
                 for _ in range(pickle.load(file)):
@@ -228,7 +228,7 @@ class Simulador:
         time.sleep(3.2) 
 
     # Função 14
-    def pagarIpva(self):
+    def pagarIpva(self) -> None:
         if len(self.__veiculos) != 0:
             for i in range(len(self.__veiculos)):
                 self.__veiculos[i].setIpva()
@@ -238,8 +238,8 @@ class Simulador:
             print("Ainda não há carros cadastrados!\n")
             time.sleep(2.5)
 
-    def menu(self):
-        
+    def menu(self) -> None:
+
         clearConsole() # Função para limparar o console
         
         print("\tBem Vindo ao simulador de corrida\nEscolha uma das opções abaixo:")
