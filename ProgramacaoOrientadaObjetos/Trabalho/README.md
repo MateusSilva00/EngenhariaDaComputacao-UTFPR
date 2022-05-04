@@ -22,19 +22,19 @@ Como veiculos é atributo do tipo *list* a função *len()* apenas retorna o seu
 
 > time.sleep(n)
 
-Apenas para o programa aguards n segundos antes de executar o próximo comando.
+Apenas para o programa aguardar n segundos antes de executar o próximo comando.
 
 >for i in range(len(self.__veiculos)):<br>
 >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if id == self.__veiculos[i].getId():
 
-Faz um *for* com o tamanho da lista de carros, e verifica se ID digitado pelo usuário é condizendo com o id de algum veiculo existente.
+Faz um *for* com o tamanho da lista de carros, e verifica se ID digitado pelo usuário é condizente com o id de algum veiculo existente.
 
 # Arquivos
 ##  Roda.py
-Dentro do arquivo Roda.py será a definição da classe roda. Esta classe possui apenas o atributo "calibragemPneu", o método setCalibragem para mudar o estado da roda e o método getCalibragem para retorna o estado da Roda.
+Dentro do arquivo Roda.py será a definição da classe roda. Esta classe possui apenas o atributo "calibragemPneu", o método setCalibragem para mudar o estado da roda e o método getCalibragem para retornar o estado da Roda.
 
 ## Veículo.py
-Este arquivo é para as definições da classe veículo. Esta classe possuí diversas atributos, porém a única que será definida pelo usuário será a marca do carro. 
+Este arquivo é para as definições da classe veículo. Esta classe possuí diversas atributos, porém a única que será definida inicialmente pelo usuário será a marca do carro. 
 
 ## Simulador.py
 Nesse arquivo será instânciado os veículos com suas rodas e um menu será aberto para fazer alterações em seus atributos. Também é possívlel mover-se com os carros na pista de corrida. 
