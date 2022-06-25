@@ -27,20 +27,19 @@ class Simulador():
             if tipoVeiculo in self.__letrasValidas:
                 marca_veiculo = input("Digite a marca do veículo: ")
                 if tipoVeiculo == 'B':
-                    veiculo = Bicicleta(marca_veiculo)
+                    veiculo = Bicicleta(marca_veiculo, 2)
                 elif tipoVeiculo ==  'E':
-                    veiculo = Esportivo(marca_veiculo)
+                    veiculo = Esportivo(marca_veiculo, 4)
                 elif tipoVeiculo == 'M':
-                    veiculo = Motocicleta(marca_veiculo)
+                    veiculo = Motocicleta(marca_veiculo, 2)
                 else:
-                    veiculo = CarroPasseio(marca_veiculo)
+                    veiculo = CarroPasseio(marca_veiculo, 4)
                 self.__veiculos.append(veiculo)
             else:
                 print("Opção inválida!\n")
 
         except ValueError:
             print("O valor precisa ser uma string!\n")
-    
 
     # Função 2
     def excluirVeiculo(self) -> None:
@@ -60,8 +59,8 @@ class Simulador():
                 print("veículo não encontrado")
 
         else:
-            print("Sem carros cadastrados")
-    
+            print("Não há veículos cadastrados!")
+
     # Função 3
     def abastecerVeiculo(self) -> None:
         if len(self.__veiculos) != 0:
@@ -80,9 +79,8 @@ class Simulador():
             if not encontrou:
                 print("veículo não encontrado")
         else:
-            print("Sem carros cadastrados")
+            print("Não há veículos cadastrados!")
     
-
     # Função 4
     def movimentarVeiculoEspecifico(self) -> None:
         if len(self.__veiculos) != 0:
@@ -97,27 +95,71 @@ class Simulador():
             if not encontrou:
                 print("veículo não encontrado")
         else:
-            print("Sem carros cadastrados")
+            print("Não há veículos cadastrados!")
 
     # Função 5
     def movimentarVeiculoTipo(self) -> None:
         if len(self.__veiculos) != 0:
-            print("Qual tipo de veículo deseja movimentar ?")
+            print("Qual tipo de veículo deseja movimentar")
             exibirTiposVeiculos()
-    
             try:
-                tipoVeiculo = input("Opção: ").upper()
-                if tipoVeiculo in self.__letrasValidas:
-                    if tipoVeiculo == 'B':
-                        pass
-                    elif tipoVeiculo == 'E':
-                        pass
-                    elif tipoVeiculo == 'M':
-                        pass
-                    else:
-                        pass
+                opcao = input("Opcao: ").upper()
+                if opcao in self.__letrasValidas:
+                    for i in range(len(self.__veiculos)):
+                        if self.__veiculos[i].letra == opcao:
+                            self.__veiculos[i].mover()
+                else:
+                    print("Opção inválida")
             except ValueError:
                 print("O valor precisa ser uma string!\n")
+        else: 
+            print("Não há veículos cadastrados!")
+
+    # Função 6
+    def movimentarVeiculos(self) -> None:
+        if len(self.__veiculos) != 0:
+            for i in range(len(self.__veiculos)):
+                self.__veiculos[i].mover()
+            print("\nVeículos movimentados com sucesso")
+        else:
+            print("Não há veículos cadastrados!")
+
+    # Função 7 
+    def imprimirDadosVeiculos(self) -> None:
+        if len(self.__veiculos) != 0:
+            for i in range(len(self.__veiculos)):
+                self.__veiculos[i].exibirVeiculoCompleto()
+        else:
+            print("Não há veículos cadastrados")
+
+    # Função 8
+    def imprimirDadosVeiculosTipo(self) -> None:
+        if len(self.__veiculos) != 0:
+            print("Qual tipo de veículo deseja ver")
+            exibirTiposVeiculos()
+            try:
+                opcao = input("Opcao: ").upper()
+                if opcao in self.__letrasValidas:
+                    for i in range(len(self.__veiculos)):
+                        if self.__veiculos[i].letra == opcao:
+                            self.__veiculos[i].exibirVeiculoCompleto()
+                else:
+                    print("Opção inválida")
+            except ValueError:
+                print("O valor precisa ser uma string!\n")
+        else:
+            print("Não há veículos cadastrados!")
+
+    # Função 15
+    def pagarIpvas(self):
+        if len(self.__veiculos) != 0:
+            for i in range(len(self.__veiculos)):
+               if isinstance(self.__veiculos[i], VeiculoMotorizado):
+                   self.__veiculos[i].Ipva = True
+            print("Todos veículos pagos com sucesso")
+        
+        else:
+            print("Sem veículos cadastrado")
 
 
     def menu(self) -> None:
@@ -154,6 +196,18 @@ class Simulador():
 
             elif codigo_menu == 5:
                 self.movimentarVeiculoTipo()
+            
+            elif codigo_menu == 6:
+                self.movimentarVeiculos()
+
+            elif codigo_menu == 7:
+                self.imprimirDadosVeiculos()
+            
+            elif codigo_menu == 8:
+                self.imprimirDadosVeiculosTipo()
+
+            elif codigo_menu == 15:
+                self.pagarIpvas()
 
             elif codigo_menu == 0:
                 print("Saindo do programa... Até mais ;)")
@@ -162,3 +216,5 @@ class Simulador():
 
         except ValueError:
             print("O valor precisa ser um número inteiro!\n")
+
+        sleep(1.3)
