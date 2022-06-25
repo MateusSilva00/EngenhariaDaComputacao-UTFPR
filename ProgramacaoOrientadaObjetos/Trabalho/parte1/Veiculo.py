@@ -67,6 +67,7 @@ class Veiculo():
 
     # Verifica todas as condições para que o carro se mova
     def mover(self) -> None:
+        if issubclass(self, )
         if self.__ipva:
             if self.__combustivel > 0.55:
                 for i in range(len(self.__rodas)):
