@@ -1,4 +1,5 @@
 # Importando bibliotecas do python
+from cmath import e
 from time import sleep
 from utils import *
 
@@ -9,7 +10,8 @@ from Bicicleta import Bicicleta
 from Esportivo import Esportivo
 from Motocicleta import Motocicleta
 from CarroPasseio import CarroPasseio
-
+import pickle
+import os
 
 class Simulador():
     def __init__(self):
@@ -57,7 +59,6 @@ class Simulador():
 
             if not encontrou:
                 print("veículo não encontrado")
-
         else:
             print("Não há veículos cadastrados!")
 
@@ -71,9 +72,9 @@ class Simulador():
                     encontrou = True
                     if isinstance(self.__veiculos[i], VeiculoMotorizado):
                         abastecer = float(input("Quanto litros deseja abastecer: "))
-                        self.__veiculos[i].Combustivel = abastecer
+                        self.__veiculos[i].setCombustivel = abastecer
                     else:
-                        print("Impossível abastercer uma bibicleta meu caro")
+                        print("Impossível abastecer uma bibicleta meu caro")
                     break                     
 
             if not encontrou:
@@ -120,7 +121,6 @@ class Simulador():
         if len(self.__veiculos) != 0:
             for i in range(len(self.__veiculos)):
                 self.__veiculos[i].mover()
-            print("\nVeículos movimentados com sucesso")
         else:
             print("Não há veículos cadastrados!")
 
@@ -150,12 +150,112 @@ class Simulador():
         else:
             print("Não há veículos cadastrados!")
 
+    # Função 9
+    def calibrar_esvaziar_PneuEspecifico(self) -> None:
+        if len(self.__veiculos) != 0:
+            id = exibirVeiculosListados(self.__veiculos, "Deseja calibrar/esvaziar roda de qual veiculo (id)? ")
+            encontrou = False
+            for i in range(len(self.__veiculos)):
+                if id == self.__veiculos[i].id:
+                    encontrou = True
+                    self.__veiculos[i].exibirRodas()
+                    try:
+                        acao = int(input("Deseja\n1 - Esvaziar\n2 - Calibrar ? "))
+
+                        if acao == 1:
+                            roda = int(input("Qual roda deseja esvaziar ? ")) - 1
+                            self.__veiculos[i].mudarRodaEstado(roda, False)
+                        else:
+                            roda = int(input("Qual roda deseja calibrar ? ")) - 1
+                            self.__veiculos[i].mudarRodaEstado(roda, True)
+                        break
+                    except ValueError:
+                        print("O valor precisar ser um inteiro!\n")
+
+            self.__veiculos[i].exibirRodas()
+        else:
+            print("Não há veículos cadastrados!")
+
+    # Função 10
+    def calibrarVeiculoTipo(self) -> None:
+        if len(self.__veiculos) != 0:
+            print("Qual tipo de veículo deseja calibrar")
+            exibirTiposVeiculos()
+            try:
+                opcao = input("Opcao: ").upper()
+                if opcao in self.__letrasValidas:
+                    for i in range(len(self.__veiculos)):
+                        if self.__veiculos[i].letra == opcao:
+                            for roda in range(self.__veiculos[i].rodas):
+                                self.__veiculos[i].mudarRodaEstado(roda, True)
+                    print("Rodas calibradas com sucesso!")
+                else:
+                    print("Opção inválida")
+            except ValueError:
+                print("O valor precisa ser uma string!\n")
+        else:
+            print("Não há veículos cadastrados")
+
+    # Função 11
+    def esvaziarVeiculoTipo(self) -> None:
+        if len(self.__veiculos) != 0:
+            print("Qual tipo de veículo deseja calibrar")
+            exibirTiposVeiculos()
+            try:
+                opcao = input("Opcao: ").upper()
+                if opcao in self.__letrasValidas:
+                    for i in range(len(self.__veiculos)):
+                        if self.__veiculos[i].letra == opcao:
+                            for roda in range(self.__veiculos[i].rodas):
+                                self.__veiculos[i].mudarRodaEstado(roda, False)
+                    print("Rodas esvaziadas com sucesso!")
+                else:
+                    print("Opção inválida")
+            except ValueError:
+                print("O valor precisa ser uma string!\n")
+        else:
+            print("Não há veículos cadastrados")
+
+    # Função 12
+    def imprimirPista(self) -> None:
+        if len(self.__veiculos) != 0:
+            for i in range(len(self.__veiculos)):
+                self.__veiculos[i].desenhar()            
+            sleep(3)
+        else:
+            print("Ainda não há carros cadastrados!\n")
+
+    # Função 13
+    def gravarVeiculos(self) -> None:
+        if len(self.__veiculos) != 0:
+            with open('veiculos.txt', mode='wb') as file:
+                pickle.dump(len(self.__veiculos), file)
+                for veiculo in self.__veiculos:
+                    pickle.dump(veiculo, file)
+            print("Veículos gravados com sucesso")
+        else:
+            print("Não há veículos para serem gravados")
+
+    # Função 14
+    def lerVeiculos(self) -> None:
+        if os.path.isfile('veiculos.txt'):
+            for i in range(len(self.__veiculos)):
+                del self.__veiculos[i]
+            
+            with open('veiculos.txt', 'rb') as file:
+                for _ in range(pickle.load(file)):
+                    self.__veiculos.append(pickle.load(file))
+            print("Veículos lidos com sucesso!")
+        else:
+            print("Nenhum arquivo encontrado")
+    
+
     # Função 15
     def pagarIpvas(self):
         if len(self.__veiculos) != 0:
             for i in range(len(self.__veiculos)):
                if isinstance(self.__veiculos[i], VeiculoMotorizado):
-                   self.__veiculos[i].Ipva = True
+                   self.__veiculos[i].setIpva = True
             print("Todos veículos pagos com sucesso")
         
         else:
@@ -205,6 +305,24 @@ class Simulador():
             
             elif codigo_menu == 8:
                 self.imprimirDadosVeiculosTipo()
+            
+            elif codigo_menu == 9:
+                self.calibrar_esvaziar_PneuEspecifico()
+            
+            elif codigo_menu == 10:
+                self.calibrarVeiculoTipo()
+            
+            elif codigo_menu == 11:
+                self.esvaziarVeiculoTipo()
+
+            elif codigo_menu == 12:
+                self.imprimirPista()
+
+            elif codigo_menu == 13:
+                self.gravarVeiculos()
+            
+            elif codigo_menu == 14:
+                self.lerVeiculos()
 
             elif codigo_menu == 15:
                 self.pagarIpvas()

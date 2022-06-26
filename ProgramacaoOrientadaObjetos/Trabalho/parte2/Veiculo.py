@@ -72,8 +72,16 @@ class Veiculo(ABC):
         except:
             print("Veículo não paga Ipva")
             pass
+    
+    def mudarRodaEstado(self, numero_roda: int, acao: bool) -> None:
+        self.__rodas[numero_roda].Calibragem = acao
 
     # Método abstrato
     @abstractmethod
     def mover(self) -> None:
+        pass
+
+    # Método abstrato
+    @abstractmethod
+    def desenhar(self) -> None:
         pass

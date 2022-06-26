@@ -1,4 +1,5 @@
 from VeiculoMotorizado import *
+from math import floor
 
 class Motocicleta(VeiculoMotorizado):
     def __init__(self, marca:str, quantidadeRodas:int):
@@ -10,19 +11,26 @@ class Motocicleta(VeiculoMotorizado):
 
     def mover(self):
         if self.Ipva:  # Verifica se o Ipva está pago
-            if self.Combustivel > self.gastoCarro:  # Verifica se há combustível
+            if self.Combustivel > self.gastoMotocicleta:  # Verifica se há combustível
                 for i in range(self.rodas):
                     if self.estadoRoda[i].Calibragem == 'Vazia':
                         print('{} há roda(s) vazia(s)'.format(self.marca))
                         return
 
-                blocos = (self.Combustivel) // self.gastoCarro
-                self.Combustivel = self.Combustivel % self.gastoCarro
+                blocos = (self.Combustivel) // self.gastoMotocicleta # 12
+                self.veiculoAndou(self.Combustivel % self.gastoMotocicleta)
                 self.distanciaPercorrida = blocos
-                print("Carro Passeio {} - {} andou {} blocos e está com {} de gasolina".format(
+                print("Motocicleta {} - ID:{} andou {} blocos e está com {:.2f} de gasolina".format(
                     self.marca, self.id, blocos, self.Combustivel))
 
             else:
                 print('{} com combustível insuficiente'.format(self.Combustivel))
         else:
             print("{} não está com ipva em dia".format(self.marca))
+
+    def desenhar(self):
+        posicao = floor(self.distanciaPercorrida) * 4
+        print("  , _oo".rjust(posicao-1))
+        print(".-/c-//: :".rjust(posicao))
+        print("(_)'=='(_)".rjust(posicao))
+        print("\n\n")

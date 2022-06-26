@@ -2,7 +2,7 @@
 def exibirVeiculosListados(veiculos: list, text:str) -> int:
     print("\n*** VEÍCULOS LISTADOS ***")
     for veiculo in veiculos:
-        print(veiculo.imprimirVeiculoID())
+        veiculo.exibirVeiculoID()
     
     codigo = int(input("\n" + text))
     return codigo

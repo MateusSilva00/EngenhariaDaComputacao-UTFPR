@@ -189,7 +189,7 @@ class Simulador:
     def imprimirPista(self) -> None:
         if len(self.__veiculos) != 0:
             for i in range(len(self.__veiculos)):
-                self.__veiculos[i].desenhaCarro()
+                self.__veiculos[i].desenhar()
             time.sleep(10)
         
         else:
