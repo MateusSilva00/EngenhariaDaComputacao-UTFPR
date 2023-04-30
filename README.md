@@ -11,8 +11,8 @@ Repositório dedicado para listas de exercícios e projetos do curso engenharia 
 [Algoritmos e Estrutura de Dados 2](/AlgoritmosEstruturaDeDados2) |
 --- |
 ### 4 PERÍODO
-[Programação Orientada a Objetos](/ProgramacaoOrientadaObjetos) |
---- |
+[Programação Orientada a Objetos](/ProgramacaoOrientadaObjetos) | [Circuitos Digitais](/CircuitosDigitais) | [Cálculo Númerico](/CalculoNumerico) |
+--- | --- | --- |
 ### 6 PERÍODO
 [Banco de Dados 1](/BancoDeDados1) |
 --- |
