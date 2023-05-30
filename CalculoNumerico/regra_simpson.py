@@ -30,7 +30,9 @@ def derivada_quarta(x: float) -> float:
     return np.exp(np.power(x, 2)) * (12 + 48 * np.power(x, 2) + 16 * np.power(x, 4))
 
 
-def regra_de_simpson(interval_a: int, interval_b, qt_intervalos: int, precision: int):
+def regra_de_simpson(
+    interval_a: int, interval_b, qt_intervalos: int, precision: int
+) -> Tuple[float, float]:
     """
     Calcula uma integral utilizando a regra de Simpson
 
