@@ -35,7 +35,7 @@ def regra_dos_trapezios(
     interval_a: int, interval_b: int, qt_trapezios: int, precision: int
 ):
     """
-    Calcula uma integral utilizando a regra dos trapézios
+    Calcula uma integral utilizando a regra dos trapézaios
 
     Args:
         interval_a: Inteiro para o limite de integração 'a'
@@ -59,6 +59,10 @@ def regra_dos_trapezios(
     return itr
 
 
-if __name__ == "__main__":
+def main():
     itr = regra_dos_trapezios(interval_a=0, interval_b=1, qt_trapezios=4, precision=6)
     print(itr)
+
+
+if __name__ == "__main__":
+    main()
